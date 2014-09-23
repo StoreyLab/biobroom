@@ -16,6 +16,12 @@
 #' @import dplyr
 #' @import tidyr
 #'
+#' @examples
+#'
+#' data(hammer)
+#' head(tidy(hammer))
+#' head(tidy(hammer, addPheno=TRUE))
+#'
 #' @export
 setMethod("tidy", "ExpressionSet", function(x, addPheno=FALSE, ...) {
     expressions <- fix_data_frame(exprs(x), newcol="gene")

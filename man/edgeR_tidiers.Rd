@@ -5,9 +5,9 @@
 \alias{tidy.DGEExact}
 \title{Tidiers for edgeR's differential expression objects}
 \usage{
-tidy.DGEExact(x, ...)
+\method{tidy}{DGEExact}(x, ...)
 
-glance.DGEExact(x, alpha = 0.05, p.adjust.method = "fdr", ...)
+\method{glance}{DGEExact}(x, alpha = 0.05, p.adjust.method = "fdr", ...)
 }
 \arguments{
 \item{...}{extra arguments (not used)}
