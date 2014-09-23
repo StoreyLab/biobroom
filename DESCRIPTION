@@ -4,16 +4,17 @@ Version: 0.1
 Authors@R: "David Robinson <admiral.david@gmail.com> [aut, cre]"
 Description: Turn Bioconductor objects into tidy data frames.
 Depends:
+    R (>= 2.10),
     methods
 License: MIT + file LICENSE
 LazyData: true
 Imports:
-    methods,
     broom,
     dplyr,
     tidyr,
     Biobase,
     limma,
 Suggests:
+    ggplot2,
     GenomicRanges,
     edgeR

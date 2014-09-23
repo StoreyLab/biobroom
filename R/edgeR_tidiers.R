@@ -6,6 +6,8 @@
 #'
 #' @name edgeR_tidiers
 #'
+#' @param x DGEExact object
+#'
 #' @examples
 #'
 #' if (require("edgeR")) {

@@ -10,6 +10,8 @@
 \method{glance}{DGEExact}(x, alpha = 0.05, p.adjust.method = "fdr", ...)
 }
 \arguments{
+\item{x}{DGEExact object}
+
 \item{...}{extra arguments (not used)}
 
 \item{alpha}{Confidence level to test for significance}
