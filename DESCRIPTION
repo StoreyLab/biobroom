@@ -1,0 +1,19 @@
+Package: biobroom
+Title: Turn Bioconductor objects into tidy data frames
+Version: 0.1
+Authors@R: "David Robinson <admiral.david@gmail.com> [aut, cre]"
+Description: Turn Bioconductor objects into tidy data frames.
+Depends:
+    methods
+License: MIT + file LICENSE
+LazyData: true
+Imports:
+    methods,
+    broom,
+    dplyr,
+    tidyr,
+    Biobase,
+    limma,
+Suggests:
+    GenomicRanges,
+    edgeR
