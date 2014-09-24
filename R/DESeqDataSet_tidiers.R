@@ -1,6 +1,6 @@
 #' Tidying methods for Biobase's DESeqDataSet objects
 #'
-#' @param x ExpressionSet object
+#' @param x DESeqDataSet object
 #' @param colData whether colData should be included in the tidied output
 #' for those in the DESeqDataSet object
 #' @param ... extra arguments (not used)
