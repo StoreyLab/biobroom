@@ -23,8 +23,17 @@ add per-sample information to a per-sample-per-gene data frame), but that
 are useful for some kinds of graphs and analyses.
 }
 \examples{
+# import ExpressionSet object
 data(hammer)
-head(tidy(hammer))
-head(tidy(hammer, addPheno=TRUE))
+
+# Use tidy to extract genes, sample ids and measured value
+tidy(hammer)
+# add phenoType data
+tidy(hammer, addPheno=TRUE)
+
+# To look at the data with counts > 30
+tt \%>\% filter(value > 30)
+# to further filter for sample ids
+tt \%>\% filter(value > 30 & sample.id =="SRX020102")
 }
 
