@@ -1,4 +1,4 @@
-#' Tidying methods for Biobase's DESeqDataSet objects
+#' Tidying methods for DESeq2 DESeqDataSet objects
 #'
 #' @param x DESeqDataSet object
 #' @param colData whether colData should be included in the tidied output
