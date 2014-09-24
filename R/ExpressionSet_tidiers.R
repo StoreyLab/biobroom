@@ -18,20 +18,28 @@
 #'
 #' @examples
 #'
+#' # import ExpressionSet object
 #' data(hammer)
-#' head(tidy(hammer))
-#' head(tidy(hammer, addPheno=TRUE))
 #'
+#' # Use tidy to extract genes, sample ids and measured value
+#' tidy(hammer)
+#' # add phenoType data
+#' tidy(hammer, addPheno=TRUE)
+#'
+#' # To look at the data with counts > 30
+#' tt %>% filter(value > 30)
+#' # to further filter for sample ids
+#' tt %>% filter(value > 30 & sample.id =="SRX020102")
 #' @export
 setMethod("tidy", "ExpressionSet", function(x, addPheno=FALSE, ...) {
     expressions <- fix_data_frame(exprs(x), newcol="gene")
     ret <- expressions %>% gather(sample.id, value, -gene)
 
     if (addPheno) {
-        pdat <- pData(hammer)
+        pdat <- pData(x)
         ret <- unrowname(as.data.frame(cbind(gene=ret$gene,
                                              pdat[ret$sample.id, ],
                                              value=ret$value)))
     }
-    ret
+    tbl_df(ret)
 })
