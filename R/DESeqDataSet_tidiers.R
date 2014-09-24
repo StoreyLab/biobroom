@@ -5,14 +5,21 @@
 #' for those in the DESeqDataSet object
 #' @param ... extra arguments (not used)
 #'
-#' @details \code{colDat=TRUE} adds columns that are redundant (since they
-#' add per-sample information to a per-sample-per-gene data frame), but that
-#' are useful for some kinds of graphs and analyses.
+#' @details \code{colDat=TRUE} adds covariates from colData to the data frame.
 #'
 #' @name DESeqDataSet_tidiers
 #'
 #' @examples
-#' # Nothing yet
+#' # From DESeq2 documentation
+#' dds <- makeExampleDESeqDataSet()
+#'
+#' xx <- tidy(dds)
+#'
+#' # With covariates
+#' xx <- tidy(dds, colData=TRUE)
+#'
+#' # Filter data for counts >20
+#' xx %>% filter(counts > 20)
 #' @export
 setMethod("tidy", "DESeqDataSet", function(x, colData=FALSE, ...) {
     expressions <- fix_data_frame(counts(x), newcol="gene")
