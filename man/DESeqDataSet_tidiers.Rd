@@ -5,8 +5,17 @@
 \title{Tidying methods for Biobase's DESeqDataSet objects}
 \usage{
 \S4method{tidy}{DESeqDataSet}(x, colData = FALSE, ...)
+
+\S4method{tidy}{DESeqDataSet}(x, colData = FALSE, ...)
 }
 \arguments{
+\item{x}{ExpressionSet object}
+
+\item{colData}{whether colData should be included in the tidied output
+for those in the DESeqDataSet object}
+
+\item{...}{extra arguments (not used)}
+
 \item{x}{ExpressionSet object}
 
 \item{colData}{whether colData should be included in the tidied output
@@ -16,13 +25,34 @@ for those in the DESeqDataSet object}
 }
 \description{
 Tidying methods for Biobase's DESeqDataSet objects
+
+Tidying methods for Biobase's DESeqDataSet objects
 }
 \details{
-\code{colDat=TRUE} adds columns that are redundant (since they
-add per-sample information to a per-sample-per-gene data frame), but that
-are useful for some kinds of graphs and analyses.
+\code{colDat=TRUE} adds covariates from colData to the data frame.
+
+\code{colDat=TRUE} adds covariates from colData to the data frame.
 }
 \examples{
-# Nothing yet
+# From DESeq2 documentation
+dds <- makeExampleDESeqDataSet()
+
+xx <- tidy(dds)
+
+# With covariates
+xx <- tidy(dds, colData=TRUE)
+
+# Filter data for counts >20
+xx \%>\% filter(counts > 20)
+# From DESeq2 documentation
+dds <- makeExampleDESeqDataSet()
+
+xx <- tidy(dds)
+
+# With covariates
+xx <- tidy(dds, colData=TRUE)
+
+# Filter data for counts >20
+xx \%>\% filter(counts > 20)
 }
 
