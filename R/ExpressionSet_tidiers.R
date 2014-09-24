@@ -16,6 +16,8 @@
 #' @import dplyr
 #' @import tidyr
 #'
+#' @method tidy DESeqDataSet
+#'
 #' @examples
 #'
 #' # import ExpressionSet object

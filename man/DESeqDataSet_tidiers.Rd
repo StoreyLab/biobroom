@@ -2,21 +2,12 @@
 \docType{methods}
 \name{DESeqDataSet_tidiers}
 \alias{DESeqDataSet_tidiers}
-\title{Tidying methods for Biobase's DESeqDataSet objects}
+\title{Tidying methods for DESeq2 DESeqDataSet objects}
 \usage{
-\S4method{tidy}{DESeqDataSet}(x, colData = FALSE, ...)
-
 \S4method{tidy}{DESeqDataSet}(x, colData = FALSE, ...)
 }
 \arguments{
-\item{x}{ExpressionSet object}
-
-\item{colData}{whether colData should be included in the tidied output
-for those in the DESeqDataSet object}
-
-\item{...}{extra arguments (not used)}
-
-\item{x}{ExpressionSet object}
+\item{x}{DESeqDataSet object}
 
 \item{colData}{whether colData should be included in the tidied output
 for those in the DESeqDataSet object}
@@ -24,27 +15,15 @@ for those in the DESeqDataSet object}
 \item{...}{extra arguments (not used)}
 }
 \description{
-Tidying methods for Biobase's DESeqDataSet objects
-
-Tidying methods for Biobase's DESeqDataSet objects
+Tidying methods for DESeq2 DESeqDataSet objects
 }
 \details{
-\code{colDat=TRUE} adds covariates from colData to the data frame.
-
 \code{colDat=TRUE} adds covariates from colData to the data frame.
 }
 \examples{
 # From DESeq2 documentation
-dds <- makeExampleDESeqDataSet()
 
-xx <- tidy(dds)
-
-# With covariates
-xx <- tidy(dds, colData=TRUE)
-
-# Filter data for counts >20
-xx \%>\% filter(counts > 20)
-# From DESeq2 documentation
+library("DESeq2")
 dds <- makeExampleDESeqDataSet()
 
 xx <- tidy(dds)

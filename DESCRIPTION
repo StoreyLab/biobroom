@@ -1,7 +1,10 @@
 Package: biobroom
 Title: Turn Bioconductor objects into tidy data frames
 Version: 0.1
-Authors@R: "David Robinson <admiral.david@gmail.com> [aut, cre]"
+Authors@R: as.person(c(
+    "David Robinson <admiral.david@gmail.com> [aut, cre]",
+    "Andrew Bass <ajbass@princeton.edu [aut]"
+    ))
 Description: Turn Bioconductor objects into tidy data frames.
 Depends:
     R (>= 2.10),
@@ -14,6 +17,7 @@ Imports:
     tidyr,
     Biobase,
     limma,
+    DESeq2
 Suggests:
     ggplot2,
     GenomicRanges,

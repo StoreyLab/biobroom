@@ -9,8 +9,12 @@
 #'
 #' @name DESeqDataSet_tidiers
 #'
+#' @importClassesFrom DESeq2 DESeqDataSet
+#'
 #' @examples
 #' # From DESeq2 documentation
+#'
+#' library("DESeq2")
 #' dds <- makeExampleDESeqDataSet()
 #'
 #' xx <- tidy(dds)
@@ -20,6 +24,9 @@
 #'
 #' # Filter data for counts >20
 #' xx %>% filter(counts > 20)
+#'
+#' @method tidy DESeqDataSet
+#'
 #' @export
 setMethod("tidy", "DESeqDataSet", function(x, colData=FALSE, ...) {
     expressions <- fix_data_frame(counts(x), newcol="gene")
