@@ -20,7 +20,7 @@ First install the package's requirements (requires [devtools](https://github.com
 
 Then the package can be installed with
 
-    devtools::install_github("StoreyLab/biobroom")
+    devtools::install_github("dgrtwo/biobroom")
 
 Find out more about the provided methods with:
 
