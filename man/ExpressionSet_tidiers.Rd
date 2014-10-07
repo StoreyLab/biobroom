@@ -32,6 +32,8 @@ tidy(hammer)
 tidy(hammer, addPheno=TRUE)
 
 # To look at the data with counts > 30
+library("dplyr")
+
 tt \%>\% filter(value > 30)
 # to further filter for sample ids
 tt \%>\% filter(value > 30 & sample.id =="SRX020102")

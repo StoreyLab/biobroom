@@ -21,7 +21,7 @@
   .. .. .. .. ..@ .Data:List of 2
   .. .. .. .. .. ..$ : int [1:3] 1 0 0
   .. .. .. .. .. ..$ : int [1:3] 1 1 0
-  ..@ assayData        :<environment: 0x7f939af244d8> 
+  ..@ assayData        :<environment: 0x7fbe80475d78> 
   ..@ phenoData        :Formal class 'AnnotatedDataFrame' [package "Biobase"] with 4 slots
   .. .. ..@ varMetadata      :'data.frame':	5 obs. of  1 variable:
   .. .. .. ..$ labelDescription: chr [1:5] NA NA NA NA ...

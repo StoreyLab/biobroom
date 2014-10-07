@@ -69,7 +69,7 @@ NULL
 setMethod("tidy", "MArrayLM", function(x, ...) {
     coefs <- fix_data_frame(x$coefficients, newnames = colnames(x),
                             newcol="gene")
-    ret <- coefs %>% gather(term, estimate, -gene)
+    ret <- coefs %>% tidyr::gather(term, estimate, -gene)
 
     # other columns that can be combined (include only those that exist)
     othernames <- c("t", "p.value", "lods")
@@ -79,7 +79,7 @@ setMethod("tidy", "MArrayLM", function(x, ...) {
         ret[[newnames[i]]] <- as.numeric(x[[othernames[i]]])
     }
 
-    ret
+    finish(ret)
 })
 
 
@@ -120,7 +120,7 @@ setMethod("augment", "MArrayLM", function(x, data, ...) {
         ret <- cbind(as.data.frame(data), ret)
     }
 
-    unrowname(ret)
+    finish(ret)
 })
 
 

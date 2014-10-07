@@ -26,7 +26,7 @@
 #' appear in the table. If \code{pi0.method="bootstrap"}, \code{smoothed}
 #' is FALSE for all entries.
 #'
-#' @name qvalue-tidiers
+#' @name qvalue_tidiers
 #'
 #' @examples
 #'
@@ -58,12 +58,34 @@
 #' }
 #'
 #' @import dplyr
-#' @importFrom tidyr gather
 #'
 #' @export
 tidy.qvalue <- function(x, ...) {
-ret <- as.data.frame(compact(x[c("lambda", "pi0.lambda", "pi0.smooth")]))
-ret <- ret %>% gather(smoothed, pi0, -lambda) %>%
-mutate(smoothed=(smoothed == "pi0.smooth"))
-ret
+    ret <- as.data.frame(compact(x[c("lambda", "pi0.lambda", "pi0.smooth")]))
+    ret <- ret %>% tidyr::gather(smoothed, pi0, -lambda) %>%
+    mutate(smoothed=(smoothed == "pi0.smooth"))
+    ret
+}
+
+#' @rdname qvalue_tidiers
+#'
+#' @return \code{augment} returns a data.frame with
+#'     \item{p.value}{the original p-values given to \code{qvalue}}
+#'     \item{q.value}{the computed q-values}
+#'     \item{lfdr}{the local false discovery rate}
+#'
+#' @export
+augment.qvalue <- function(x, data, ...) {
+    data.frame(p.value=x$pvalues, q.value=x$qvalues, lfdr=x$lfdr)
+}
+
+
+#' @rdname qvalue_tidiers
+#'
+#' @return \code{glance} returns a one-row data.frame containing only
+#'     \item{pi0}{the estimated pi0 (proportion of nulls)}
+#'
+#' @export
+glance.qvalue <- function(x, ...) {
+    data.frame(pi0=x$pi0)
 }

@@ -6,7 +6,8 @@ This package contains methods for converting standard objects constructed by bio
 biobroom implements tidying methods for both S3 and S4 classes. Objects that can be tidied include
 
 * ExpressionSet objects
-* per-gene differential expression tests from limma and edgeR
+* per-gene differential expression tests from limma, edgeR, and DESeq2
+* [qvalue](http://www.bioconductor.org/packages/release/bioc/html/qvalue.html) multiple hypothesis testing objects
 
 Installation
 ------------
@@ -14,7 +15,7 @@ Installation
 First install the package's requirements (requires [devtools](https://github.com/hadley/devtools)):
 
     source("http://bioconductor.org/biocLite.R")
-    biocLite(c("Biobase", "limma", "edgeR"))
+    biocLite(c("Biobase", "limma", "edgeR", "DESeq2", "GenomicRanges"))
     devtools::install_github("dgrtwo/broom")
 
 Then the package can be installed with
@@ -25,5 +26,14 @@ Find out more about the provided methods with:
 
     library(biobroom)
     ?edgeR_tidiers
-    ?ExpressionSet_tidiers
+    ?DESeq2_tidiers
     ?limma_tidiers
+    ?ExpressionSet_tidiers
+
+Note on returned values
+------------
+
+All biobroom `tidy` and `augment` methods, since they tend to be large data frames, return a [tbl_df](http://www.inside-r.org/packages/cran/dplyr/docs/tbl_df) by default (this prevents them from printing many rows at once, while still acting like a traditional data.frame). To change this to a data.frame or data.table, you can set the `biobroom.return` option:
+
+    options(biobroom.return = "data.frame")
+    options(biobroom.return = "data.table")

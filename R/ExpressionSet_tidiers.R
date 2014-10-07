@@ -14,7 +14,6 @@
 #' @import broom
 #' @import Biobase
 #' @import dplyr
-#' @import tidyr
 #'
 #' @method tidy DESeqDataSet
 #'
@@ -29,13 +28,15 @@
 #' tidy(hammer, addPheno=TRUE)
 #'
 #' # To look at the data with counts > 30
+#' library("dplyr")
+#'
 #' tt %>% filter(value > 30)
 #' # to further filter for sample ids
 #' tt %>% filter(value > 30 & sample.id =="SRX020102")
 #' @export
 setMethod("tidy", "ExpressionSet", function(x, addPheno=FALSE, ...) {
     expressions <- fix_data_frame(exprs(x), newcol="gene")
-    ret <- expressions %>% gather(sample.id, value, -gene)
+    ret <- expressions %>% tidyr::gather(sample.id, value, -gene)
 
     if (addPheno) {
         pdat <- pData(x)
@@ -43,5 +44,5 @@ setMethod("tidy", "ExpressionSet", function(x, addPheno=FALSE, ...) {
                                              pdat[ret$sample.id, ],
                                              value=ret$value)))
     }
-    tbl_df(ret)
+    finish(ret)
 })

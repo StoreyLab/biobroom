@@ -31,6 +31,7 @@
 tidy.DGEExact <- function(x, ...) {
     ret <- fix_data_frame(x$table, c("estimate", "logCPM", "p.value"),
                           newcol = "gene")
+    finish(ret)
 }
 
 
