@@ -23,5 +23,6 @@ Suggests:
     GenomicRanges,
     edgeR,
     qvalue,
-    knitr
+    knitr,
+    data.table
 VignetteBuilder: knitr

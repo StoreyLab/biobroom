@@ -22,8 +22,6 @@ compact <- function(x) Filter(Negate(is.null), x)
 #'
 #' @param x a data frame
 #'
-#' @importFrom data.table as.data.table
-#'
 #' @return a data-frame-like object, such as a tbl_df,
 #' tbl_dt, or data.table, whose class is determined by the
 #' biobroom.return option
