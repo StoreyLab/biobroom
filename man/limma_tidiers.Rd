@@ -7,7 +7,7 @@
 \alias{tidy,MArrayLM-method}
 \title{Tidiers for the output of limma (linear models for microarray analysis)}
 \usage{
-\S4method{tidy}{MArrayLM}(x, ...)
+\S4method{tidy}{MArrayLM}(x, intercept = FALSE, ...)
 
 \S4method{augment}{MArrayLM}(x, data, ...)
 
@@ -15,6 +15,9 @@
 }
 \arguments{
 \item{x}{MArrayLM object}
+
+\item{intercept}{whether the \code{(Intercept)} term should be included
+(default FALSE)}
 
 \item{...}{extra arguments, not used}
 

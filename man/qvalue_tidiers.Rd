@@ -39,8 +39,10 @@ is FALSE for all entries.
     \item{q.value}{the computed q-values}
     \item{lfdr}{the local false discovery rate}
 
-\code{glance} returns a one-row data.frame containing only
+\code{glance} returns a one-row data.frame containing
     \item{pi0}{the estimated pi0 (proportion of nulls)}
+    \item{lambda}{lambda used to compute pi0. Note that if pi0 is 1,
+    this may be NA since it can be ambiguous which lambda was used}
 }
 \description{
 These are methods for turning a qvalue object, from the qvalue package for

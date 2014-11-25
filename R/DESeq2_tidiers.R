@@ -8,6 +8,9 @@
 #' @param colData whether colData should be included in the tidied output
 #' for those in the DESeqDataSet object. If dataset includes hypothesis test
 #' results, this is ignored
+#' @param intercept whether to include hypothesis test results from the
+#' (Intercept) term. If dataset does not include hypothesis testing,
+#' this is ignored
 #' @param ... extra arguments (not used)
 #'
 #' @details \code{colDat=TRUE} adds covariates from colData to the data frame.
@@ -68,12 +71,16 @@
 #' @method tidy DESeqDataSet
 #'
 #' @export
-setMethod("tidy", "DESeqDataSet", function(x, colData=FALSE, ...) {
+setMethod("tidy", "DESeqDataSet", function(x, colData = FALSE,
+                                           intercept = FALSE, ...) {
     # try to extract the per-gene, per-coefficient information
     resnames <- DESeq2::resultsNames(x)
     if (length(resnames) > 0) {
         ret <- data.frame(term = resnames) %>% group_by(term) %>%
             do(tidy(results(x, name = as.character(.$term))))
+        if (!intercept) {
+            ret <- ret %>% filter(term != "(Intercept)")
+        }
         return(finish(ret))
     }
 

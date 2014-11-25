@@ -5,7 +5,7 @@
 \alias{tidy,DESeqResults-method}
 \title{Tidying methods for DESeq2 DESeqDataSet objects}
 \usage{
-\S4method{tidy}{DESeqDataSet}(x, colData = FALSE, ...)
+\S4method{tidy}{DESeqDataSet}(x, colData = FALSE, intercept = FALSE, ...)
 
 \S4method{tidy}{DESeqResults}(x, ...)
 }
@@ -15,6 +15,10 @@
 \item{colData}{whether colData should be included in the tidied output
 for those in the DESeqDataSet object. If dataset includes hypothesis test
 results, this is ignored}
+
+\item{intercept}{whether to include hypothesis test results from the
+(Intercept) term. If dataset does not include hypothesis testing,
+this is ignored}
 
 \item{...}{extra arguments (not used)}
 }

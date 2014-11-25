@@ -50,6 +50,9 @@ NULL
 
 #' @rdname limma_tidiers
 #'
+#' @param intercept whether the \code{(Intercept)} term should be included
+#' (default FALSE)
+#'
 #' @return \code{tidy} returns one row per gene per coefficient. It always
 #' contains the columns
 #'   \item{gene}{The name of the gene (extracted from the rownames of the
@@ -66,7 +69,7 @@ NULL
 #' @import broom
 #'
 #' @export
-setMethod("tidy", "MArrayLM", function(x, ...) {
+setMethod("tidy", "MArrayLM", function(x, intercept = FALSE, ...) {
     coefs <- fix_data_frame(x$coefficients, newnames = colnames(x),
                             newcol="gene")
     ret <- coefs %>% tidyr::gather(term, estimate, -gene)
@@ -77,6 +80,10 @@ setMethod("tidy", "MArrayLM", function(x, ...) {
     for (i in seq_along(othernames)) {
         if (!is.null(x[[othernames[i]]]))
         ret[[newnames[i]]] <- as.numeric(x[[othernames[i]]])
+    }
+    if (!intercept) {
+        ret <- ret %>% filter(term != "(Intercept)") %>%
+            mutate(term = droplevels(term))
     }
 
     finish(ret)
@@ -136,3 +143,45 @@ setMethod("glance", "MArrayLM", function(x, ...) {
     components <- unclass(x)[c("rank", "df.prior", "s2.prior")]
     as.data.frame(compact(components))
 })
+
+
+#' Tidying method for an MA list
+#'
+#' @export
+tidy.MAList <- function(x, ...) {
+    tidy_matrix(x$M)
+}
+
+
+#' Tidy an EList expression object
+#'
+#' @name elist_tidiers
+#'
+#' @return \code{tidy} returns a data frame with one row per gene-sample
+#' combination, with columns
+#'   \item{gene}{gene name}
+#'   \item{sample}{sample name (from column names)}
+#'   \item{value}{expressions on log2 scale}
+#'   \item{weight}{present if \code{weights} is set}
+#'
+#' @export
+tidy.EList <- function(x, ...) {
+    ret <- tidy_matrix(x$E)
+    if (!is.null(x$weights)) {
+        rownames(x$weights) <- rownames(x$E)
+        ret$weight <- tidy_matrix(x$weights)$value
+    }
+    ret
+}
+
+
+#' tidying function for matrices
+#'
+#' Not an actual S3 generic; to be used only on gene expression matrices
+#'
+#' @import dplyr
+#' @importFrom broom fix_data_frame
+tidy_matrix <- function(x, ...) {
+    fix_data_frame(x, newcol = "gene") %>%
+        tidyr::gather(sample, value, -gene)
+}
