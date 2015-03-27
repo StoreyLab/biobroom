@@ -13,7 +13,7 @@
 #'
 #' @import broom
 #' @import Biobase
-#' @import dplyr
+#' @importFrom dplyr %>%
 #'
 #' @method tidy DESeqDataSet
 #'

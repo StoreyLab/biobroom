@@ -19,7 +19,7 @@
 #'
 #' @importClassesFrom limma MArrayLM
 #'
-#' @import dplyr
+#' @importFrom dplyr %>%
 #' @import tidyr
 #'
 #' @examples
@@ -179,9 +179,8 @@ tidy.EList <- function(x, ...) {
 #'
 #' Not an actual S3 generic; to be used only on gene expression matrices
 #'
-#' @import dplyr
-#' @importFrom broom fix_data_frame
+#' @importFrom dplyr %>%
 tidy_matrix <- function(x, ...) {
-    fix_data_frame(x, newcol = "gene") %>%
+    broom::fix_data_frame(x, newcol = "gene") %>%
         tidyr::gather(sample, value, -gene)
 }

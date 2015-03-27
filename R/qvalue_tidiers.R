@@ -57,7 +57,7 @@
 #' g + geom_hline(yintercept=q$pi0, lty=2)
 #' }
 #'
-#' @import dplyr
+#' @importFrom dplyr %>%
 #'
 #' @export
 tidy.qvalue <- function(x, ...) {
