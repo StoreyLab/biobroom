@@ -25,8 +25,6 @@
 #'     head(glance(et))
 #' }
 #'
-#' @method tidy DGEExact
-#'
 #' @export
 tidy.DGEExact <- function(x, ...) {
     ret <- fix_data_frame(x$table, c("estimate", "logCPM", "p.value"),
@@ -46,8 +44,6 @@ tidy.DGEExact <- function(x, ...) {
 #'   \item{significant}{number of significant genes using desired adjustment
 #'   method and confidence level}
 #'   \item{comparison}{The pair of groups compared by edgeR, delimited by /}
-#'
-#' @method glance DGEExact
 #'
 #' @export
 glance.DGEExact <- function(x, alpha=.05, p.adjust.method="fdr", ...) {

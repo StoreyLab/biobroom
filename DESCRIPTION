@@ -8,17 +8,16 @@ Authors@R: as.person(c(
 Description: Turn Bioconductor objects into tidy data frames.
 Depends:
     R (>= 3.1.0),
-    methods
+    broom
 License: MIT + file LICENSE
 LazyData: true
 Imports:
-    broom,
     dplyr,
-    tidyr,
+    tidyr
+Suggests:
     Biobase,
     limma,
-    DESeq2
-Suggests:
+    DESeq2,
     ggplot2,
     GenomicRanges,
     edgeR,

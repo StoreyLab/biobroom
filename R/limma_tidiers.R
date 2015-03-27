@@ -17,8 +17,6 @@
 #' @return The output of tidying functions is always a data frame without
 #' rownames.
 #'
-#' @importClassesFrom limma MArrayLM
-#'
 #' @importFrom dplyr %>%
 #' @import tidyr
 #'
@@ -69,7 +67,7 @@ NULL
 #' @import broom
 #'
 #' @export
-setMethod("tidy", "MArrayLM", function(x, intercept = FALSE, ...) {
+tidy.MArrayLM <- function(x, intercept = FALSE, ...) {
     coefs <- fix_data_frame(x$coefficients, newnames = colnames(x),
                             newcol="gene")
     ret <- coefs %>% tidyr::gather(term, estimate, -gene)
@@ -87,7 +85,7 @@ setMethod("tidy", "MArrayLM", function(x, intercept = FALSE, ...) {
     }
 
     finish(ret)
-})
+}
 
 
 #' @rdname limma_tidiers
@@ -114,7 +112,7 @@ setMethod("tidy", "MArrayLM", function(x, intercept = FALSE, ...) {
 #'   \item{.s2.post}{posterior estimate of residual variance}
 #'
 #' @export
-setMethod("augment", "MArrayLM", function(x, data, ...) {
+augment.MArrayLM <- function(x, data, ...) {
     cols <- c("sigma", "F", "F.p.value", "AMean", "df.total", "df.residual",
               "s2.prior", "s2.post")
     newnames <- c("sigma", "statistic", "p.value", "AMean", "df.total",
@@ -128,7 +126,7 @@ setMethod("augment", "MArrayLM", function(x, data, ...) {
     }
 
     finish(ret)
-})
+}
 
 
 #' @rdname limma_tidiers
@@ -139,10 +137,10 @@ setMethod("augment", "MArrayLM", function(x, data, ...) {
 #'   \item{s2.prior}{empirical Bayesian prior residual standard deviation}
 #'
 #' @export
-setMethod("glance", "MArrayLM", function(x, ...) {
+glance.MArrayLM <- function(x, ...) {
     components <- unclass(x)[c("rank", "df.prior", "s2.prior")]
     as.data.frame(compact(components))
-})
+}
 
 
 #' Tidying method for an MA list

@@ -11,11 +11,7 @@
 #'
 #' @name ExpressionSet_tidiers
 #'
-#' @import broom
-#' @import Biobase
 #' @importFrom dplyr %>%
-#'
-#' @method tidy DESeqDataSet
 #'
 #' @examples
 #'
@@ -34,15 +30,15 @@
 #' # to further filter for sample ids
 #' tt %>% filter(value > 30 & sample.id =="SRX020102")
 #' @export
-setMethod("tidy", "ExpressionSet", function(x, addPheno=FALSE, ...) {
+tidy.ExpressionSet <- function(x, addPheno=FALSE, ...) {
     expressions <- fix_data_frame(exprs(x), newcol="gene")
     ret <- expressions %>% tidyr::gather(sample.id, value, -gene)
 
     if (addPheno) {
-        pdat <- pData(x)
+        pdat <- Biobase::pData(x)
         ret <- unrowname(as.data.frame(cbind(gene=ret$gene,
                                              pdat[ret$sample.id, ],
                                              value=ret$value)))
     }
     finish(ret)
-})
+}

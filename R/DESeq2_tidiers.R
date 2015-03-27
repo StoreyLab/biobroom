@@ -39,8 +39,6 @@
 #'
 #' @name DESeq2_tidiers
 #'
-#' @importClassesFrom DESeq2 DESeqDataSet
-#'
 #' @examples
 #'
 #' # From DESeq2 documentation
@@ -68,16 +66,14 @@
 #'     }
 #' }
 #'
-#' @method tidy DESeqDataSet
-#'
 #' @export
-setMethod("tidy", "DESeqDataSet", function(x, colData = FALSE,
-                                           intercept = FALSE, ...) {
+tidy.DESeqDataSet <- function(x, colData = FALSE, intercept = FALSE, ...) {
     # try to extract the per-gene, per-coefficient information
     resnames <- DESeq2::resultsNames(x)
     if (length(resnames) > 0) {
-        ret <- data.frame(term = resnames) %>% group_by(term) %>%
-            do(tidy(results(x, name = as.character(.$term))))
+        ret <- data.frame(term = resnames) %>%
+            dplyr::group_by(term) %>%
+            dplyr::do(tidy(DESeq2::results(x, name = as.character(.$term))))
         if (!intercept) {
             ret <- ret %>% filter(term != "(Intercept)")
         }
@@ -89,19 +85,19 @@ setMethod("tidy", "DESeqDataSet", function(x, colData = FALSE,
     ret <- expressions %>% tidyr::gather(sample, count, -gene)
 
     if (colData) {
-        cdat <- data.frame(colData(x))
+        cdat <- data.frame(DESeq2::colData(x))
         ret <- unrowname(as.data.frame(cbind(gene=ret$gene,
                                              cdat[ret$sample, ],
                                              count=ret$count)))
     }
     finish(ret)
-})
+}
 
 
 #' @rdname DESeq2_tidiers
 #'
 #' @export
-setMethod("tidy", "DESeqResults", function(x, ...) {
+tidy.DESeqResults <- function(x, ...) {
     nn <- c("baseMean", "estimate", "stderror", "statistic", "p.value", "p.adjusted")
     finish(fix_data_frame(x, newnames = nn, newcol = "gene"))
-})
+}
