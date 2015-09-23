@@ -3,7 +3,8 @@ Title: Turn Bioconductor objects into tidy data frames
 Version: 0.1
 Authors@R: as.person(c(
     "David Robinson <admiral.david@gmail.com> [aut, cre]",
-    "Andrew Bass <ajbass@princeton.edu [aut]"
+    "Andrew Bass <ajbass@princeton.edu [aut]",
+    "Emily Nelson <emilysn@princeton.edu [aut]"
     ))
 Description: Turn Bioconductor objects into tidy data frames.
 Depends:
