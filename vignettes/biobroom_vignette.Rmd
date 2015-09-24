@@ -148,6 +148,7 @@ results = results(deseq)
 
 ```{r}
 tidy_results = tidy(results)
+head(tidy_results)
 
 ggplot(tidy_results, aes(x=estimate, y=log(p.value),
                          color=log(baseMean))) + geom_point(alpha=0.5) +
