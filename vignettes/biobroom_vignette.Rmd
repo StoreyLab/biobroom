@@ -100,7 +100,7 @@ To demonstrate tidying on *DESeq2* objects I have used the published *airway* RN
 source("https://bioconductor.org/biocLite.R")
 biocLite("airway")
 ```
-Get the `airway` dataset.
+Get the `airway` dataset (`biocLite("airway")`).
 
 ```{r}
 library(DESeq2)
