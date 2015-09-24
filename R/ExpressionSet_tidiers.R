@@ -22,13 +22,20 @@
 #' tidy(hammer)
 #' # add phenoType data
 #' tidy(hammer, addPheno=TRUE)
+#'
+#' @return \code{tidy} returns a data frame with one row per gene-sample
+#' combination, with columns
+#'   \item{gene}{gene name}
+#'   \item{sample}{sample name (from column names)}
+#'   \item{value}{expressions on log2 scale}
+#'
 #' @export
 tidy.ExpressionSet <- function(x, addPheno=FALSE, ...) {
-    expressions <- fix_data_frame(Biobase::exprs(x), newcol="gene")
+    expressions <- fix_data_frame(exprs(x), newcol="gene")
     ret <- expressions %>% tidyr::gather(sample.id, value, -gene)
 
     if (addPheno) {
-        pdat <- Biobase::pData(x)
+        pdat <- pData(x)
         ret <- unrowname(as.data.frame(cbind(gene=ret$gene,
                                              pdat[ret$sample.id, ],
                                              value=ret$value)))

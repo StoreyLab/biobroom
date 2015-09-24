@@ -143,11 +143,16 @@ glance.MArrayLM <- function(x, ...) {
 }
 
 
-#' Tidying method for an MA list
+#' Tidying method for a MA list
 #'
 #' @param x \code{MAList} class from the limma package.
 #' @param ... Currently no additional arguments are necessary.
 #'
+#' @return \code{tidy} returns a data frame with one row per gene-sample
+#' combination, with columns
+#'   \item{gene}{gene name}
+#'   \item{sample}{sample name (from column names)}
+#'   \item{value}{expressions on log2 scale}
 #' @export
 tidy.MAList <- function(x, ...) {
     tidy_matrix(x$M)

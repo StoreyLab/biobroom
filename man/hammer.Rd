@@ -22,7 +22,7 @@
   .. .. .. .. ..@ .Data:List of 2
   .. .. .. .. .. ..$ : int [1:3] 1 0 0
   .. .. .. .. .. ..$ : int [1:3] 1 1 0
-  ..@ assayData        :<environment: 0x1080fe8> 
+  ..@ assayData        :<environment: 0x26914d0> 
   ..@ phenoData        :Formal class 'AnnotatedDataFrame' [package "Biobase"] with 4 slots
   .. .. ..@ varMetadata      :'data.frame':	5 obs. of  1 variable:
   .. .. .. ..$ labelDescription: chr [1:5] NA NA NA NA ...
@@ -63,6 +63,9 @@
 }}
 \usage{
 hammer
+}
+\value{
+ExpressionSet
 }
 \description{
 An ExpressionSet containing the results of the Hammer et al

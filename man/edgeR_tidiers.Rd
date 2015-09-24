@@ -34,8 +34,8 @@ one column.
 \examples{
 if (require("edgeR")) {
     data(hammer)
-    hammer.counts <- Biobase::exprs(hammer)[, 1:4]
-    hammer.treatment <- Biobase::phenoData(hammer)$protocol[1:4]
+    hammer.counts <- exprs(hammer)[, 1:4]
+    hammer.treatment <- phenoData(hammer)$protocol[1:4]
 
     y <- DGEList(counts=hammer.counts,group=hammer.treatment)
     y <- calcNormFactors(y)

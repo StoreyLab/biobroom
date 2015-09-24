@@ -15,6 +15,13 @@ for those in the ExpressionSet's phenoData}
 
 \item{...}{extra arguments (not used)}
 }
+\value{
+\code{tidy} returns a data frame with one row per gene-sample
+combination, with columns
+  \item{gene}{gene name}
+  \item{sample}{sample name (from column names)}
+  \item{value}{expressions on log2 scale}
+}
 \description{
 Tidying methods for Biobase's ExpressionSet objects
 }

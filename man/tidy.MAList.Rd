@@ -2,7 +2,7 @@
 % Please edit documentation in R/limma_tidiers.R
 \name{tidy.MAList}
 \alias{tidy.MAList}
-\title{Tidying method for an MA list}
+\title{Tidying method for a MA list}
 \usage{
 \method{tidy}{MAList}(x, ...)
 }
@@ -11,7 +11,14 @@
 
 \item{...}{Currently no additional arguments are necessary.}
 }
+\value{
+\code{tidy} returns a data frame with one row per gene-sample
+combination, with columns
+  \item{gene}{gene name}
+  \item{sample}{sample name (from column names)}
+  \item{value}{expressions on log2 scale}
+}
 \description{
-Tidying method for an MA list
+Tidying method for a MA list
 }
 
