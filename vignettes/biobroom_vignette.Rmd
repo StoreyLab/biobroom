@@ -175,13 +175,13 @@ et <- exactTest(y)
 `tidy` can be used on the `DGEExact` object, called `et` here.
 
 ```{r}
-head(tidy(et, alpha = 0.05))
+head(tidy(et))
 ```
 
-`glance` shows a summary of the experiment: the number of genes found significant, and which contrasts were compared to get the results.
+`glance` shows a summary of the experiment: the number of genes found significant (at a specified `alpha`), and which contrasts were compared to get the results.
 
 ```{r}
-glance(et)
+glance(et, alpha = 0.05)
 ```
 
 ```{r}
