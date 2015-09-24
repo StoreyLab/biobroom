@@ -18,7 +18,7 @@
 #' @return If the dataset contains results (p-values and log2 fold changes),
 #' the result is a data frame with the columns
 #'   \item{term}{The contrast being tested, as given to
-#'   \code{\link{results}}}
+#'   \code{results}}
 #'   \item{gene}{gene ID}
 #'   \item{baseMean}{mean abundance level}
 #'   \item{estimate}{estimated log2 fold change}
@@ -27,7 +27,7 @@
 #'   \item{p.value}{p-value}
 #'   \item{p.adjusted}{adjusted p-value}
 #'
-#' If the dataset does not contain results (\code{\link{DESeq}} has
+#' If the dataset does not contain results (\code{DESeq} has
 #' not been run on it), \code{tidy} defaults to tidying the counts in
 #' the dataset:
 #'   \item{gene}{gene ID}
@@ -55,7 +55,7 @@
 #'     dds@@design <- (~ condition + noise)
 #'
 #'     # perform differential expression tests
-#'     ddsres <- DESeq(dds)
+#'     ddsres <- DESeq(dds, test = "Wald")
 #'     # now results are per-gene, per-term
 #'     tidied <- tidy(ddsres)
 #'     tidied
@@ -75,7 +75,7 @@ tidy.DESeqDataSet <- function(x, colData = FALSE, intercept = FALSE, ...) {
             dplyr::group_by(term) %>%
             dplyr::do(tidy(DESeq2::results(x, name = as.character(.$term))))
         if (!intercept) {
-            ret <- ret %>% filter(term != "(Intercept)")
+            ret <- ret %>% dplyr::ungroup() %>% dplyr::filter(term != "(Intercept)")
         }
         return(finish(ret))
     }
@@ -85,7 +85,7 @@ tidy.DESeqDataSet <- function(x, colData = FALSE, intercept = FALSE, ...) {
     ret <- expressions %>% tidyr::gather(sample, count, -gene)
 
     if (colData) {
-        cdat <- data.frame(DESeq2::colData(x))
+        cdat <- data.frame(GenomicRanges::colData(x))
         ret <- unrowname(as.data.frame(cbind(gene=ret$gene,
                                              cdat[ret$sample, ],
                                              count=ret$count)))

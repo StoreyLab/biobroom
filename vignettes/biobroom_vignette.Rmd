@@ -1,11 +1,11 @@
 ---
-title: "Biobroom Vignette"
+title: "biobroom Vignette"
 author: "Andrew Bass and Emily Nelson"
 date: "September 23, 2015"
 output: html_document
 ---
 
-#About Biobroom
+# About biobroom
 
 This package contains methods for converting standard objects constructed by bioinformatics packages, especially those in BioConductor, and converting them to tidy data. It thus serves as a complement to the *broom* package, and follows the same the `tidy`/`augment`/`glance` division of tidying methods. Tidying data makes it easy to recombine, reshape and visualize bioinformatics analyses.
 
@@ -15,7 +15,7 @@ This package contains methods for converting standard objects constructed by bio
 * per-gene differential expression tests from *limma*, *edgeR*, *edge*, and *DESeq2*
 * *qvalue* multiple hypothesis testing objects
 
-#Installation
+# Installation
 
 First install the package's requirements (this requires the *devtools* package):
 
@@ -29,13 +29,12 @@ knitr::opts_chunk$set(fig.width=12, fig.height=6, out.width='700in', out.height=
 source("http://bioconductor.org/biocLite.R")
 biocLite(c("Biobase", "limma", "edgeR", "DESeq2", "GenomicRanges", "qvalue"))
 devtools::install_github("dgrtwo/broom")
-
 ```
 
 Then the package can be installed with 
 
 ```{r eval=FALSE}
-devtools::install_github("storeylab/biobroom")
+devtools::install_github("StoreyLab/biobroom")
 ```
 
 Find out more about the provided objects with
@@ -93,7 +92,7 @@ ggplot(augment(q), aes(p.value, q.value)) + geom_point() +
 ```
 
 
-##DESeq2 Objects
+## DESeq2 Objects
 
 To demonstrate tidying on *DESeq2* objects I have used the published *airway* RNA-Seq experiment, available as a package from *Bioconductor*.
 
@@ -217,7 +216,7 @@ ggplot(tidy(hammer, addPheno=TRUE), aes(x=protocol, y=log(value))) +
   geom_boxplot() + ggtitle("Boxplot Showing Effect of Protocol on Expression")
 ```
 
-#Note on returned values
+# Note on returned values
 
 All *biobroom* `tidy` and `augment` methods, since they tend to be large data frames, return a `tbl_df` by default (this prevents them from printing many rows at once, while still acting like a traditional `data.frame`). To change this to a `data.frame` or `data.table`, you can set the `biobroom.return` option:
 

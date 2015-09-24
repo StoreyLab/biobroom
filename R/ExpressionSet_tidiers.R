@@ -22,16 +22,9 @@
 #' tidy(hammer)
 #' # add phenoType data
 #' tidy(hammer, addPheno=TRUE)
-#'
-#' # To look at the data with counts > 30
-#' library("dplyr")
-#'
-#' tt %>% filter(value > 30)
-#' # to further filter for sample ids
-#' tt %>% filter(value > 30 & sample.id =="SRX020102")
 #' @export
 tidy.ExpressionSet <- function(x, addPheno=FALSE, ...) {
-    expressions <- fix_data_frame(exprs(x), newcol="gene")
+    expressions <- fix_data_frame(Biobase::exprs(x), newcol="gene")
     ret <- expressions %>% tidyr::gather(sample.id, value, -gene)
 
     if (addPheno) {

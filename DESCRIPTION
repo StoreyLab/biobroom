@@ -1,14 +1,16 @@
 Package: biobroom
 Title: Turn Bioconductor objects into tidy data frames
-Version: 0.1
-Authors@R: as.person(c(
-    "David Robinson <admiral.david@gmail.com> [aut, cre]",
-    "Andrew Bass <ajbass@princeton.edu [aut]",
-    "Emily Nelson <emilysn@princeton.edu [aut]"
-    ))
+Version: 0.99.0
+Authors@R: c(
+    person("David", "Robinson", email = "admiral.david@gmail.com", role = c("aut")),
+    person("Andrew", "Bass", email = "ajbass@princeton.edu", role = c("ctb", "cre")),
+    person("Emily", "Nelson", email = "emilysn@princeton.edu", role = c("ctb"))
+    )
 Description: Turn Bioconductor objects into tidy data frames.
+biocViews: MultipleComparison, DifferentialExpression,
+    Regression, GeneExpression, DataImport
 Depends:
-    R (>= 3.1.0),
+    R (>= 3.2.0),
     broom
 License: MIT + file LICENSE
 LazyData: true
@@ -20,6 +22,7 @@ Suggests:
     limma,
     DESeq2,
     ggplot2,
+    plyr,
     GenomicRanges,
     edgeR,
     qvalue,

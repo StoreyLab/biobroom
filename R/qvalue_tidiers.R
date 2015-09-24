@@ -57,13 +57,13 @@
 #' g + geom_hline(yintercept=q$pi0, lty=2)
 #' }
 #'
-#' @importFrom dplyr %>%
+#' @importFrom dplyr %>% mutate select filter tbl_dt count
 #'
 #' @export
 tidy.qvalue <- function(x, ...) {
     ret <- as.data.frame(compact(x[c("lambda", "pi0.lambda", "pi0.smooth")]))
     ret <- ret %>% tidyr::gather(smoothed, pi0, -lambda) %>%
-    mutate(smoothed=(smoothed == "pi0.smooth"))
+    dplyr::mutate(smoothed=(smoothed == "pi0.smooth"))
     ret
 }
 

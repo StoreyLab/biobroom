@@ -81,7 +81,7 @@ tidy.MArrayLM <- function(x, intercept = FALSE, ...) {
     }
     if (!intercept) {
         ret <- ret %>% dplyr::filter(term != "(Intercept)") %>%
-            mutate(term = droplevels(term))
+            dplyr::mutate(term = droplevels(term))
     }
 
     finish(ret)
@@ -145,6 +145,9 @@ glance.MArrayLM <- function(x, ...) {
 
 #' Tidying method for an MA list
 #'
+#' @param x \code{MAList} class from the limma package.
+#' @param ... Currently no additional arguments are necessary.
+#'
 #' @export
 tidy.MAList <- function(x, ...) {
     tidy_matrix(x$M)
@@ -155,13 +158,16 @@ tidy.MAList <- function(x, ...) {
 #'
 #' @name elist_tidiers
 #'
+#' @param x \code{Elist} class from the limma package.
+#' @param ... Currently no additional arguments are necessary.
+#'
 #' @return \code{tidy} returns a data frame with one row per gene-sample
 #' combination, with columns
 #'   \item{gene}{gene name}
 #'   \item{sample}{sample name (from column names)}
 #'   \item{value}{expressions on log2 scale}
 #'   \item{weight}{present if \code{weights} is set}
-#'
+#' @importFrom dplyr %>%
 #' @export
 tidy.EList <- function(x, ...) {
     ret <- tidy_matrix(x$E)
@@ -172,12 +178,6 @@ tidy.EList <- function(x, ...) {
     ret
 }
 
-
-#' tidying function for matrices
-#'
-#' Not an actual S3 generic; to be used only on gene expression matrices
-#'
-#' @importFrom dplyr %>%
 tidy_matrix <- function(x, ...) {
     broom::fix_data_frame(x, newcol = "gene") %>%
         tidyr::gather(sample, value, -gene)
