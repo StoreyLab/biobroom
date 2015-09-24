@@ -11,10 +11,8 @@
 #'
 #' @name ExpressionSet_tidiers
 #'
-#' @importFrom dplyr %>%
-#'
 #' @examples
-#'
+#' library(Biobase)
 #' # import ExpressionSet object
 #' data(hammer)
 #'
@@ -31,7 +29,7 @@
 #'
 #' @export
 tidy.ExpressionSet <- function(x, addPheno=FALSE, ...) {
-    expressions <- fix_data_frame(exprs(x), newcol="gene")
+    expressions <- fix_data_frame(Biobase::exprs(x), newcol="gene")
     ret <- expressions %>% tidyr::gather(sample.id, value, -gene)
 
     if (addPheno) {

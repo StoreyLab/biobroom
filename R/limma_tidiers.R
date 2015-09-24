@@ -17,7 +17,6 @@
 #' @return The output of tidying functions is always a data frame without
 #' rownames.
 #'
-#' @importFrom dplyr %>%
 #' @import tidyr
 #'
 #' @examples
@@ -172,7 +171,6 @@ tidy.MAList <- function(x, ...) {
 #'   \item{sample}{sample name (from column names)}
 #'   \item{value}{expressions on log2 scale}
 #'   \item{weight}{present if \code{weights} is set}
-#' @importFrom dplyr %>%
 #' @export
 tidy.EList <- function(x, ...) {
     ret <- tidy_matrix(x$E)

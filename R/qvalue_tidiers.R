@@ -56,8 +56,8 @@
 #' # show the chosen value
 #' g + geom_hline(yintercept=q$pi0, lty=2)
 #' }
-#' @import Biobase
-#' @importFrom dplyr %>% mutate select filter tbl_dt count
+#' @import broom
+#' @importFrom dplyr mutate select filter tbl_dt count
 #'
 #' @export
 tidy.qvalue <- function(x, ...) {

@@ -18,5 +18,6 @@
 #' multi-experiment resource of analysis-ready RNA-seq gene count datasets.
 #' BMC Bioinformatics, 12, 449. http://bowtie-bio.sourceforge.net/recount/
 #'
+#' @importFrom Biobase ExpressionSet exprs
 #' @return ExpressionSet
 "hammer"

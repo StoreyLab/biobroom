@@ -33,6 +33,7 @@ one column.
 }
 \examples{
 if (require("edgeR")) {
+    library(Biobase)
     data(hammer)
     hammer.counts <- exprs(hammer)[, 1:4]
     hammer.treatment <- phenoData(hammer)$protocol[1:4]

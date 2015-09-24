@@ -10,14 +10,14 @@ Description: Turn Bioconductor objects into tidy data frames.
 biocViews: MultipleComparison, DifferentialExpression,
     Regression, GeneExpression, DataImport
 Depends:
-    Biobase,
     R (>= 3.2.0),
     broom
 License: MIT + file LICENSE
 LazyData: true
 Imports:
     dplyr,
-    tidyr
+    tidyr,
+    Biobase
 Suggests:
     limma,
     DESeq2,
