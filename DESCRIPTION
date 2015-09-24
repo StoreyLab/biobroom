@@ -3,8 +3,8 @@ Title: Turn Bioconductor objects into tidy data frames
 Version: 0.99.0
 Authors@R: c(
     person("David", "Robinson", email = "admiral.david@gmail.com", role = c("aut")),
-    person("Andrew", "Bass", email = "ajbass@princeton.edu", role = c("ctb", "cre")),
-    person("Emily", "Nelson", email = "emilysn@princeton.edu", role = c("ctb"))
+    person("Andrew", "Bass", email = "ajbass@princeton.edu", role = c("aut", "cre")),
+    person("Emily", "Nelson", email = "emilysn@princeton.edu", role = c("aut"))
     )
 Description: This package contains methods for converting standard objects constructed by bioinformatics packages, especially those in BioConductor, and converting them to tidy data. It thus serves as a complement to the broom package, and follows the same the tidy, augment, glance division of tidying methods. Tidying data makes it easy to recombine, reshape and visualize bioinformatics analyses.
 biocViews: MultipleComparison, DifferentialExpression,
