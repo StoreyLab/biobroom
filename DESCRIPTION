@@ -13,7 +13,7 @@ biocViews: MultipleComparison, DifferentialExpression,
 Depends:
     R (>= 3.2.0),
     broom
-License: MIT + file LICENSE
+License: LGPL
 LazyData: true
 Imports:
     dplyr,
