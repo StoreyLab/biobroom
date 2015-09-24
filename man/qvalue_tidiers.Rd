@@ -9,16 +9,18 @@
 \usage{
 \method{tidy}{qvalue}(x, ...)
 
-\method{augment}{qvalue}(x, data, ...)
+\method{augment}{qvalue}(x, data, gene.names = NULL, ...)
 
 \method{glance}{qvalue}(x, ...)
 }
 \arguments{
-\item{x}{lm object}
+\item{x}{qvalue object}
 
 \item{...}{extra arguments (not used)}
 
 \item{data}{Original data, ignored (since the original p-values are stored)}
+
+\item{gene.names}{vector of gene names.}
 }
 \value{
 All tidying methods return a \code{data.frame} without rownames.

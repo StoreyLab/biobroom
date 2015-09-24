@@ -1,19 +1,29 @@
 ---
 title: "biobroom Vignette"
-author: "Andrew Bass and Emily Nelson"
+author: "Andrew Bass, Emily Nelson and David Robinson"
 date: "September 23, 2015"
 output: html_document
 ---
 
 # About biobroom
 
-This package contains methods for converting standard objects constructed by bioinformatics packages, especially those in BioConductor, and converting them to tidy data. It thus serves as a complement to the *broom* package, and follows the same the `tidy`/`augment`/`glance` division of tidying methods. Tidying data makes it easy to recombine, reshape and visualize bioinformatics analyses.
+This package contains methods for converting standard objects constructed by
+bioinformatics packages, especially those in BioConductor, and converting them
+to tidy data. It thus serves as a complement to the *broom* package, and
+follows the same the `tidy`/`augment`/`glance` division of tidying methods.
+Tidying data makes it easy to recombine, reshape and visualize bioinformatics
+analyses.
 
-*biobroom* implements tidying methods for both S3 and S4 classes. Objects that can be tidied include
+*biobroom* implements tidying methods for both S3 and S4 classes. Objects that
+can be tidied include
 
 * ExpressionSet objects (from *Biobase*)
 * per-gene differential expression tests from *limma*, *edgeR*, *edge*, and *DESeq2*
 * *qvalue* multiple hypothesis testing objects
+
+We are currently working on adding additional methods to existing Bioconductor
+objects. Please visit our [github page](https://github.com/StoreyLab/biobroom)
+if you would like to add new tidying methods for objects.
 
 # Installation
 
@@ -48,49 +58,59 @@ library(biobroom)
 ?qvalue_tidiers
 ```
 
-#Examples
+# Examples
 
-##qvalue Objects
+## qvalue Objects
 
-Generate some simulated p-values to test the tidier.
-
-```{r message=FALSE}
-library(broom)
-library(biobroom)
-library(qvalue)
-library(ggplot2)
-library(dplyr)
-
-# generate p-values from many one sample t-tests: half of them null
-oracle <- rep(c(0, .5), each=1000)
-pvals <- sapply(oracle, function(mu) t.test(rnorm(15, mu))$p.value)
-qplot(pvals) + ggtitle("Simulated P-Values")
-```
-
-Call the `qvalue` package on the simulated p-values to generate a `qvalue` object, called `q` here.
+The [qvalue package](https://www.bioconductor.org/packages/release/bioc/html/qvalue.html)
+is a popular package to estimate q-values and local false discovery rates. To get started,
+we can load the `hedenfalk` dataset included in the `qvalue` package:
 ```{r}
-q <- qvalue(pvals)
+library(qvalue)
+data(hedenfalk)
 
-head(tidy(q))
-head(augment(q))
-glance(q)
+qobj <- qvalue(hedenfalk$p)
+names(qobj)
 ```
 
-`tidy` returns one row for each choice of the tuning parameter lambda.
+`qobj` is a list and in order to use popular packages like `dplyr` or `ggplot`,
+we need to convert the results to a data frame. To make things worse, the elements
+in the list are different lengths. The `biobroom` package makes this conversion easy
+by using the `tidy`, `augment` and `glance` functions:
 
-`augment` returns one row for each provided p-value, including the computed q-value and local false discovery rate.
+- `tidy` returns one row for each choice of the tuning parameter lambda.
+- `augment` returns one row for each provided p-value, including the computed q-value and local false discovery rate.
+- `glance` returns a single row containing the estimated `pi0`.
 
-`glance` returns a single row containing the estimated `pi0`.
+Applying these functions to `qobj` created earlier,  
 
+```{r}
+library(biobroom)
+# use tidy/augment/glance to restructure the qvalue object
+head(tidy(qobj))
+head(augment(qobj))
+head(glance(qobj))
+```
+
+The gene names can be inputted into `augment` using the `gene.names` argument.
 The tidied data can be used to easily create plots:
 
 ```{r}
+library(ggplot2)
 # use augmented data to compare p-values to q-values
-ggplot(augment(q), aes(p.value, q.value)) + geom_point() +
+ggplot(augment(qobj), aes(p.value, q.value)) + geom_point() +
   ggtitle("Simulated P-values versus Computed Q-values") + theme_bw()
-
 ```
 
+Additionally, we can easily extract out important information such as significant
+genes under a false discovery rate threshold:
+```{r}
+library(dplyr)
+
+# Find significant genes under 0.05 threshold
+sig.genes <- augment(qobj) %>% filter(q.value < 0.05)
+head(sig.genes)
+```
 
 ## DESeq2 Objects
 
@@ -154,7 +174,7 @@ et <- exactTest(y)
 `tidy` can be used on the `DGEExact` object, called `et` here.
 
 ```{r}
-head(tidy(et))
+head(tidy(et, alpha = 0.05))
 ```
 
 `glance` shows a summary of the experiment: the number of genes found significant, and which contrasts were compared to get the results.
