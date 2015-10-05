@@ -1,53 +1,52 @@
 ---
 title: "biobroom Vignette"
 author: "Andrew Bass, Emily Nelson and David Robinson"
-date: "September 23, 2015"
-output: html_document
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
 ---
 
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+-->
+  
 # About biobroom
 
-This package contains methods for converting standard objects constructed by
-bioinformatics packages, especially those in BioConductor, and converting them
-to tidy data. It thus serves as a complement to the *broom* package, and
-follows the same the `tidy`/`augment`/`glance` division of tidying methods.
+The `biobroom` package contains methods for converting standard objects in
+Bioconductor into a tidy format. It serves as a complement to the popular [broom](https://github.com/dgrtwo/broom)
+package, and follows the same division (`tidy`/`augment`/`glance`) of tidying
+methods.
+
 Tidying data makes it easy to recombine, reshape and visualize bioinformatics
-analyses.
+analyses. Objects that can be tidied include
 
-*biobroom* implements tidying methods for both S3 and S4 classes. Objects that
-can be tidied include
+* `ExpressionSet` object,
+* per-gene differential expression tests from `limma`, `edgeR`, and `DESeq2`,
+* `qvalue` object for multiple hypothesis testing.
 
-* ExpressionSet objects (from *Biobase*)
-* per-gene differential expression tests from *limma*, *edgeR*, *edge*, and *DESeq2*
-* *qvalue* multiple hypothesis testing objects
-
-We are currently working on adding additional methods to existing Bioconductor
-objects. Please visit our [github page](https://github.com/StoreyLab/biobroom)
-if you would like to add new tidying methods for objects.
+We are currently working on adding more methods to existing Bioconductor
+objects. If any bugs are found please contact the authors or visit our
+[github page](https://github.com/StoreyLab/biobroom). Otherwise, any questions
+can be answered on the [Bioconductor support site](https://support.bioconductor.org/).
 
 # Installation
-
-First install the package's requirements (this requires the *devtools* package):
 
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(fig.width=12, fig.height=6, out.width='700in', out.height='350in', 
                       echo=TRUE, warning=FALSE, message=FALSE, cache=FALSE, dev='png')
 ```
 
+The `biobroom` package can be installed by typing in a R terminal:
 
 ```{r eval=FALSE}
 source("http://bioconductor.org/biocLite.R")
-biocLite(c("Biobase", "limma", "edgeR", "DESeq2", "GenomicRanges", "qvalue"))
-devtools::install_github("dgrtwo/broom")
+biocLite("biobroom")
 ```
 
-Then the package can be installed with 
-
-```{r eval=FALSE}
-devtools::install_github("StoreyLab/biobroom")
-```
-
-Find out more about the provided objects with
+To find out more about the provided objects:
 
 ```{r eval=FALSE}
 library(biobroom)
@@ -60,7 +59,7 @@ library(biobroom)
 
 # Examples
 
-## qvalue Objects
+## qvalue object
 
 The [qvalue package](https://www.bioconductor.org/packages/release/bioc/html/qvalue.html)
 is a popular package to estimate q-values and local false discovery rates. To get started,
@@ -73,16 +72,15 @@ qobj <- qvalue(hedenfalk$p)
 names(qobj)
 ```
 
-`qobj` is a list and in order to use popular packages like `dplyr` or `ggplot`,
-we need to convert the results to a data frame. To make things worse, the elements
-in the list are different lengths. The `biobroom` package makes this conversion easy
-by using the `tidy`, `augment` and `glance` functions:
+`qobj` is a list and if we wanted to use popular package, such as `dplyr` or `ggplot`,
+we would need to convert the results into a data frame. The `biobroom` package
+makes this conversion easy by using the `tidy`, `augment` and `glance` functions:
 
 - `tidy` returns one row for each choice of the tuning parameter lambda.
 - `augment` returns one row for each provided p-value, including the computed q-value and local false discovery rate.
 - `glance` returns a single row containing the estimated `pi0`.
 
-Applying these functions to `qobj` created earlier,  
+Applying these functions to `qobj`:  
 
 ```{r}
 library(biobroom)
@@ -102,7 +100,7 @@ ggplot(augment(qobj), aes(p.value, q.value)) + geom_point() +
   ggtitle("Simulated P-values versus Computed Q-values") + theme_bw()
 ```
 
-Additionally, we can easily extract out important information such as significant
+Additionally, we can extract out important information such as significant
 genes under a false discovery rate threshold:
 ```{r}
 library(dplyr)
@@ -112,25 +110,28 @@ sig.genes <- augment(qobj) %>% filter(q.value < 0.05)
 head(sig.genes)
 ```
 
-## DESeq2 Objects
+## DESeq2 objects
 
-To demonstrate tidying on *DESeq2* objects I have used the published *airway* RNA-Seq experiment, available as a package from *Bioconductor*.
+To demonstrate tidying on *DESeq2* objects we have used the published *airway*
+RNA-Seq experiment, available as a package from *Bioconductor*:
 
 ```{r eval=FALSE}
 source("https://bioconductor.org/biocLite.R")
 biocLite("airway")
 ```
-Get the `airway` dataset (`biocLite("airway")`).
+
+Import the airway dataset:
 
 ```{r}
 library(DESeq2)
-
 library(airway)
+
 data(airway)
-airway_se = airway
+airway_se <- airway
 ```
 
-`airway_se` is a `SummarizedExperiment` object.
+`airway_se` is a `SummarizedExperiment` object. Next, we create a `DESeqDataSet` object
+and show the output of tidying this object:
 
 ```{r}
 airway_dds <- DESeqDataSet(airway_se, design = ~cell + dex)
@@ -138,26 +139,30 @@ airway_dds <- DESeqDataSet(airway_se, design = ~cell + dex)
 head(tidy(airway_dds))
 ```
 
-`airway_dds` is a `DESeqDataSet` object. `tidy` can be called on this object, though it only outputs the gene counts, since no analysis has been performed yet.
+Only the gene counts are outputted since there has been no analysis performed.
+We perform an analysis on the data and then `tidy` the resulting object:
 ```{r}
-deseq = DESeq(airway_dds)
-results = results(deseq)
+# differential expression analysis
+deseq <- DESeq(airway_dds)
+results <- results(deseq)
+# tidy results
+tidy_results <- tidy(results)
+head(tidy_results)
 ```
 
-`tidy` can then be run on the `DESeq` object or the results.
+As an example to show how easy it is to manipulate the resulting object,
+`tidy_result`, we can use `ggplot2` to create a volcano plot of the p-values: 
 
 ```{r}
-tidy_results = tidy(results)
-head(tidy_results)
-
 ggplot(tidy_results, aes(x=estimate, y=log(p.value),
                          color=log(baseMean))) + geom_point(alpha=0.5) +
   ggtitle("Volcano Plot For Airway Data via DESeq2") + theme_bw()
 ```
 
-##edgeR Objects
+##edgeR objects
 
-Using `hammer` data included in `biobroom` package.
+Using `hammer` data included in `biobroom` package and performing differential
+expression analysis:
 ```{r}
 library(edgeR)
 data(hammer)
@@ -184,15 +189,17 @@ head(tidy(et))
 glance(et, alpha = 0.05)
 ```
 
+Additionally, we can can easily manipulate the resulting object and create
+a volcano plot of the p-values using `ggplot2`:
 ```{r}
 ggplot(tidy(et), aes(x=estimate, y=log(p.value), color=logCPM)) +
   geom_point(alpha=0.5) + ggtitle("Volcano Plot for Hammer Data via EdgeR") +
   theme_bw()
 ```
 
-##limma Objects
+##limma objects
 
-Generate some random data to test the tidier.
+Generate some random data to test the tidier for `limma` objects:
 
 ```{r}
 # create random data and design
@@ -203,16 +210,19 @@ des <- data.frame(treatment = c("a", "a", "b", "b"),
                   confounding = rnorm(4))
 ```
 
-Use `lmFit` and `eBayes` to fit a linear model and perform empirical Bayes.
+Use `lmFit` and `eBayes` to fit a linear model and use `tidy` to convert the
+resulting object into tidy format:
 
 ```{r}
 lfit <- lmFit(dat, model.matrix(~ treatment + confounding, des))
 eb <- eBayes(lfit)
+
 head(tidy(lfit))
 head(tidy(eb))
 ```
 
-Analysis can easily be performed from the tidied data.
+Analysis can easily be performed from the tidied data. The package `ggplot2` can
+be used to make a volcano plot of the p-values:
 
 ```{r}
 ggplot(tidy(eb), aes(x=estimate, y=log(p.value), color=statistic)) + 
@@ -222,24 +232,36 @@ ggplot(tidy(eb), aes(x=estimate, y=log(p.value), color=statistic)) +
 ```
 
 
-##ExpressionSet Objects
+##ExpressionSet objects
 
-`tidy` can also be run directly on `ExpressionSet` objects from `Biobase.` The `hammer` dataset we used above is an `ExpressionSet` object, so we'll use that to demonstrate.
+`tidy` can also be run directly on `ExpressionSet` objects from `Biobase.` The
+`hammer` dataset we used above is an `ExpressionSet` object, so we'll use that to demonstrate.
 
 ```{r}
 library(Biobase)
 
 head(tidy(hammer))
+```
 
+We can add the phenotype information by using the argument `addPheno`:
+```{r}
 head(tidy(hammer, addPheno = TRUE))
+```
 
+Now we can easily visualize the distribution of counts for each protocol by using
+`ggplot2`:
+
+```{r}
 ggplot(tidy(hammer, addPheno=TRUE), aes(x=protocol, y=log(value))) +
   geom_boxplot() + ggtitle("Boxplot Showing Effect of Protocol on Expression")
 ```
 
 # Note on returned values
 
-All *biobroom* `tidy` and `augment` methods, since they tend to be large data frames, return a `tbl_df` by default (this prevents them from printing many rows at once, while still acting like a traditional `data.frame`). To change this to a `data.frame` or `data.table`, you can set the `biobroom.return` option:
+All *biobroom* `tidy` and `augment` methods return a `tbl_df` by default (this
+prevents them from printing many rows at once, while still acting like a
+traditional `data.frame`). To change this to a `data.frame` or `data.table`,
+you can set the `biobroom.return` option:
 
 ```{r eval=FALSE}
 options(biobroom.return = "data.frame")

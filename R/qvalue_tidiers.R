@@ -59,8 +59,8 @@
 #' }
 #' @import broom
 #' @importFrom dplyr mutate select filter tbl_dt count
-#'
-#' @export
+#' @S3method tidy qvalue
+#' @export tidy.qvalue
 tidy.qvalue <- function(x, ...) {
     ret <- as.data.frame(compact(x[c("lambda", "pi0.lambda", "pi0.smooth")]))
     ret <- ret %>% tidyr::gather(smoothed, pi0, -lambda) %>%
@@ -74,8 +74,8 @@ tidy.qvalue <- function(x, ...) {
 #'     \item{p.value}{the original p-values given to \code{qvalue}}
 #'     \item{q.value}{the computed q-values}
 #'     \item{lfdr}{the local false discovery rate}
-#'
-#' @export
+#' @S3method augment qvalue
+#' @export augment.qvalue
 augment.qvalue <- function(x, data, gene.names = NULL, ...) {
     if (is.null(gene.names)) gene.names = 1:length(x$pvalues)
     data.frame(id=gene.names, p.value=x$pvalues, q.value=x$qvalues, lfdr=x$lfdr, ...)
@@ -89,7 +89,8 @@ augment.qvalue <- function(x, data, gene.names = NULL, ...) {
 #'     \item{lambda}{lambda used to compute pi0. Note that if pi0 is 1,
 #'     this may be NA since it can be ambiguous which lambda was used}
 #'
-#' @export
+#' @S3method glance qvalue
+#' @export glance.qvalue
 glance.qvalue <- function(x, ...) {
     # find choice of lambda
     if (!is.null(x$pi0.smooth)) {

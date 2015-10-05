@@ -51,8 +51,8 @@
 #'     tidy(dds, colData=TRUE)
 #'
 #'     # add a noise confounding effect
-#'     dds@@colData$noise <- rnorm(nrow(dds@@colData))
-#'     dds@@design <- (~ condition + noise)
+#'     colData(dds)$noise <- rnorm(nrow(colData(dds)))
+#'     design(dds) <- (~ condition + noise)
 #'
 #'     # perform differential expression tests
 #'     ddsres <- DESeq(dds, test = "Wald")
@@ -66,7 +66,8 @@
 #'     }
 #' }
 #'
-#' @export
+#' @S3method tidy DESeqDataSet
+#' @export tidy.DESeqDataSet
 tidy.DESeqDataSet <- function(x, colData = FALSE, intercept = FALSE, ...) {
     # try to extract the per-gene, per-coefficient information
     resnames <- DESeq2::resultsNames(x)
@@ -96,7 +97,8 @@ tidy.DESeqDataSet <- function(x, colData = FALSE, intercept = FALSE, ...) {
 
 #' @rdname DESeq2_tidiers
 #'
-#' @export
+#' @S3method tidy DESeqResults
+#' @export tidy.DESeqResults
 tidy.DESeqResults <- function(x, ...) {
     nn <- c("baseMean", "estimate", "stderror", "statistic", "p.value", "p.adjusted")
     finish(fix_data_frame(x, newnames = nn, newcol = "gene"))

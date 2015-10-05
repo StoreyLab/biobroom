@@ -1,15 +1,15 @@
 Package: biobroom
 Title: Turn Bioconductor objects into tidy data frames
-Version: 0.99.0
+Version: 0.99.1
 Author: David G. Robinson, Andrew J. Bass, Emily Nelson and John D. Storey
 Maintainer: John D. Storey <jstorey@princeton.edu> and Andrew J. Bass <ajbass@princeton.edu>
-Description: This package contains methods for converting standard objects constructed by bioinformatics packages, especially those in BioConductor, and converting them to tidy data. It thus serves as a complement to the broom package, and follows the same the tidy, augment, glance division of tidying methods. Tidying data makes it easy to recombine, reshape and visualize bioinformatics analyses.
+Description: This package contains methods for converting standard objects constructed by bioinformatics packages, especially those in Bioconductor, and converting them to tidy data. It thus serves as a complement to the broom package, and follows the same the tidy, augment, glance division of tidying methods. Tidying data makes it easy to recombine, reshape and visualize bioinformatics analyses.
 biocViews: MultipleComparison, DifferentialExpression,
     Regression, GeneExpression, DataImport
 Depends:
     R (>= 3.2.0),
     broom
-License: MIT
+License: LGPL
 LazyData: true
 Imports:
     dplyr,
@@ -18,6 +18,7 @@ Imports:
 Suggests:
     limma,
     DESeq2,
+    airway,
     ggplot2,
     plyr,
     GenomicRanges,
