@@ -20,6 +20,8 @@ Bioconductor into a tidy format. It serves as a complement to the popular [broom
 package, and follows the same division (`tidy`/`augment`/`glance`) of tidying
 methods.
 
+"Tidy data" is a data analysis paradigm that focuses on keeping data in so-called "long" format--essentially a single observation per row of a data table. For further information, please see Hadley Wickham's [paper](http://vita.had.co.nz/papers/tidy-data.pdf) on the subject.
+
 Tidying data makes it easy to recombine, reshape and visualize bioinformatics
 analyses. Objects that can be tidied include
 
@@ -34,7 +36,7 @@ can be answered on the [Bioconductor support site](https://support.bioconductor.
 
 # Installation
 
-```{r global_options, include=FALSE}
+```{r global_options, include=FALSE, echo=FALSE}
 knitr::opts_chunk$set(fig.width=12, fig.height=6, out.width='700in', out.height='350in', 
                       echo=TRUE, warning=FALSE, message=FALSE, cache=FALSE, dev='png')
 ```
@@ -72,7 +74,7 @@ qobj <- qvalue(hedenfalk$p)
 names(qobj)
 ```
 
-`qobj` is a list and if we wanted to use popular package, such as `dplyr` or `ggplot`,
+`qobj` is a `qvalue` object, generated from the p-values contained in the `hedenfalk` dataset. If we wanted to use a package such as `dplyr` or `ggplot`,
 we would need to convert the results into a data frame. The `biobroom` package
 makes this conversion easy by using the `tidy`, `augment` and `glance` functions:
 
@@ -112,7 +114,7 @@ head(sig.genes)
 
 ## DESeq2 objects
 
-To demonstrate tidying on *DESeq2* objects we have used the published *airway*
+To demonstrate tidying on `DESeq2` objects we have used the published `airway`
 RNA-Seq experiment, available as a package from *Bioconductor*:
 
 ```{r eval=FALSE}
@@ -120,7 +122,7 @@ source("https://bioconductor.org/biocLite.R")
 biocLite("airway")
 ```
 
-Import the airway dataset:
+Import the `airway` dataset:
 
 ```{r}
 library(DESeq2)
@@ -130,7 +132,7 @@ data(airway)
 airway_se <- airway
 ```
 
-`airway_se` is a `SummarizedExperiment` object. Next, we create a `DESeqDataSet` object
+`airway_se` is a `SummarizedExperiment` object, which is a type of object used by the `DESeq2` package. Next, we create a `DESeqDataSet` object
 and show the output of tidying this object:
 
 ```{r}
@@ -161,8 +163,9 @@ ggplot(tidy_results, aes(x=estimate, y=log(p.value),
 
 ##edgeR objects
 
-Using `hammer` data included in `biobroom` package and performing differential
-expression analysis:
+Here we use the  `hammer` dataset included in `biobroom` package. `edgeR` can be used to perform differential
+expression analysis as follows:
+
 ```{r}
 library(edgeR)
 data(hammer)
@@ -177,7 +180,7 @@ y <- estimateTagwiseDisp(y)
 et <- exactTest(y)
 ```
 
-`tidy` can be used on the `DGEExact` object, called `et` here.
+The results of the analysis are stored in `et`, which is an `DGEExact` object. We can `tidy` this object using `biobroom`:
 
 ```{r}
 head(tidy(et))
@@ -199,7 +202,7 @@ ggplot(tidy(et), aes(x=estimate, y=log(p.value), color=logCPM)) +
 
 ##limma objects
 
-Generate some random data to test the tidier for `limma` objects:
+To demonstrate how `biobroom` works with `limma` objects, we generate some simulated data to test the tidier for `limma` objects. 
 
 ```{r}
 # create random data and design
@@ -210,7 +213,7 @@ des <- data.frame(treatment = c("a", "a", "b", "b"),
                   confounding = rnorm(4))
 ```
 
-Use `lmFit` and `eBayes` to fit a linear model and use `tidy` to convert the
+We then use `lmFit` and `eBayes` (functions included in `limma`) to fit a linear model and use `tidy` to convert the
 resulting object into tidy format:
 
 ```{r}
@@ -234,8 +237,8 @@ ggplot(tidy(eb), aes(x=estimate, y=log(p.value), color=statistic)) +
 
 ##ExpressionSet objects
 
-`tidy` can also be run directly on `ExpressionSet` objects from `Biobase.` The
-`hammer` dataset we used above is an `ExpressionSet` object, so we'll use that to demonstrate.
+`tidy` can also be run directly on `ExpressionSet` objects, as described in another popular `Bioconductor` package `Biobase.` The
+`hammer` dataset we used above (which is included in the `biobroom` package) is an `ExpressionSet` object, so we'll use that to demonstrate.
 
 ```{r}
 library(Biobase)
