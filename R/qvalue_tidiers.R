@@ -65,7 +65,7 @@ tidy.qvalue <- function(x, ...) {
     ret <- as.data.frame(compact(x[c("lambda", "pi0.lambda", "pi0.smooth")]))
     ret <- ret %>% tidyr::gather(smoothed, pi0, -lambda) %>%
     dplyr::mutate(smoothed=(smoothed == "pi0.smooth"))
-    ret
+    finish(ret)
 }
 
 #' @rdname qvalue_tidiers
@@ -78,7 +78,8 @@ tidy.qvalue <- function(x, ...) {
 #' @export augment.qvalue
 augment.qvalue <- function(x, data, gene.names = NULL, ...) {
     if (is.null(gene.names)) gene.names = 1:length(x$pvalues)
-    data.frame(id=gene.names, p.value=x$pvalues, q.value=x$qvalues, lfdr=x$lfdr, ...)
+    df <- data.frame(id=gene.names, p.value=x$pvalues, q.value=x$qvalues, lfdr=x$lfdr, ...)
+    finish(df)
 }
 
 
@@ -98,5 +99,6 @@ glance.qvalue <- function(x, ...) {
     } else {
         lambda <- x$lambda[which(x$pi0.lambda == x$pi0)[1]]
     }
-    data.frame(pi0 = x$pi0, lambda = lambda)
+    df <- data.frame(pi0 = x$pi0, lambda = lambda)
+    finish(df)
 }
