@@ -1,7 +1,7 @@
 biobroom: Tidying up computational biology
 ====================
 
-This package contains methods for converting standard objects constructed by bioinformatics packages, especially those in [BioConductor](http://www.bioconductor.org/), and converting them to [tidy data](http://www.jstatsoft.org/v59/i10). It thus serves as a complement to the [broom package](https://github.com/dgrtwo/broom), and follows the same the tidy/augment/glance division of tidying methods. Tidying data makes it easy to recombine, reshape and visualize bioinformatics analyses.
+This package contains methods for converting standard objects constructed by bioinformatics packages, especially those in [Bioconductor](http://www.bioconductor.org/), and converting them to [tidy data](http://www.jstatsoft.org/v59/i10). It thus serves as a complement to the [broom package](https://github.com/dgrtwo/broom), and follows the same the tidy/augment/glance division of tidying methods. Tidying data makes it easy to recombine, reshape and visualize bioinformatics analyses.
 
 biobroom implements tidying methods for both S3 and S4 classes. Objects that can be tidied include
 
