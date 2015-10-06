@@ -26,8 +26,10 @@ Tidying data makes it easy to recombine, reshape and visualize bioinformatics
 analyses. Objects that can be tidied include
 
 * `ExpressionSet` object,
+* `MSnSet` object,
 * per-gene differential expression tests from `limma`, `edgeR`, and `DESeq2`,
 * `qvalue` object for multiple hypothesis testing.
+
 
 We are currently working on adding more methods to existing Bioconductor
 objects. If any bugs are found please contact the authors or visit our
@@ -56,6 +58,7 @@ library(biobroom)
 ?DESeq2_tidiers
 ?limma_tidiers
 ?ExpressionSet_tidiers
+?MSnSet_tidiers
 ?qvalue_tidiers
 ```
 
@@ -257,6 +260,19 @@ Now we can easily visualize the distribution of counts for each protocol by usin
 ```{r}
 ggplot(tidy(hammer, addPheno=TRUE), aes(x=protocol, y=log(value))) +
   geom_boxplot() + ggtitle("Boxplot Showing Effect of Protocol on Expression")
+```
+
+##MSnSet Objects
+
+`tidy` can also be run directly on `MSnSet` objects from `MSnbase`, which as specialised containers for quantitative proteomics data.
+
+```{r}
+library(MSnbase)
+data(msnset)
+
+head(tidy(msnset))
+
+head(tidy(msnset, addPheno = TRUE))
 ```
 
 # Note on returned values
