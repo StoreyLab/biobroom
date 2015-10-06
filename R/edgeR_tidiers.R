@@ -25,7 +25,8 @@
 #'     head(glance(et))
 #' }
 #'
-#' @export
+#' @S3method tidy DGEExact
+#' @export tidy.DGEExact
 tidy.DGEExact <- function(x, ...) {
     ret <- fix_data_frame(x$table, c("estimate", "logCPM", "p.value"),
                           newcol = "gene")
@@ -45,7 +46,8 @@ tidy.DGEExact <- function(x, ...) {
 #'   method and confidence level}
 #'   \item{comparison}{The pair of groups compared by edgeR, delimited by /}
 #'
-#' @export
+#' @S3method glance DGEExact
+#' @export glance.DGEExact
 glance.DGEExact <- function(x, alpha=.05, p.adjust.method="fdr", ...) {
     pvals <- x$table$PValue
     pvals.adj <- p.adjust(pvals, p.adjust.method)

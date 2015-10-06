@@ -27,7 +27,8 @@
 #'   \item{sample}{sample name (from column names)}
 #'   \item{value}{expressions on log2 scale}
 #'
-#' @export
+#' @S3method tidy ExpressionSet
+#' @export tidy.ExpressionSet
 tidy.ExpressionSet <- function(x, addPheno=FALSE, ...) {
     expressions <- fix_data_frame(Biobase::exprs(x), newcol="gene")
     ret <- expressions %>% tidyr::gather(sample.id, value, -gene)
