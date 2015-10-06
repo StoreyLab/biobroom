@@ -6,6 +6,7 @@ This package contains methods for converting standard objects constructed by bio
 biobroom implements tidying methods for both S3 and S4 classes. Objects that can be tidied include
 
 * ExpressionSet objects
+* MSnSet objects
 * per-gene differential expression tests from limma, edgeR, and DESeq2
 * [qvalue](http://www.bioconductor.org/packages/release/bioc/html/qvalue.html) multiple hypothesis testing objects
 
@@ -15,7 +16,7 @@ Installation
 First install the package's requirements (requires [devtools](https://github.com/hadley/devtools)):
 
     source("http://bioconductor.org/biocLite.R")
-    biocLite(c("Biobase", "limma", "edgeR", "DESeq2", "GenomicRanges"))
+    biocLite(c("Biobase", "limma", "edgeR", "DESeq2", "GenomicRanges", "MSnbase"))
     devtools::install_github("dgrtwo/broom")
 
 Then the package can be installed with
@@ -29,6 +30,7 @@ Find out more about the provided methods with:
     ?DESeq2_tidiers
     ?limma_tidiers
     ?ExpressionSet_tidiers
+    ?MSnSet_tidiers
 
 Note on returned values
 ------------

@@ -18,6 +18,7 @@ analyses.
 can be tidied include
 
 * ExpressionSet objects (from *Biobase*)
+* MSnSet objects (from *MSnbase*)
 * per-gene differential expression tests from *limma*, *edgeR*, *edge*, and *DESeq2*
 * *qvalue* multiple hypothesis testing objects
 
@@ -55,6 +56,7 @@ library(biobroom)
 ?DESeq2_tidiers
 ?limma_tidiers
 ?ExpressionSet_tidiers
+?MSnSet_tidiers
 ?qvalue_tidiers
 ```
 
@@ -224,7 +226,7 @@ ggplot(tidy(eb), aes(x=estimate, y=log(p.value), color=statistic)) +
 
 ##ExpressionSet Objects
 
-`tidy` can also be run directly on `ExpressionSet` objects from `Biobase.` The `hammer` dataset we used above is an `ExpressionSet` object, so we'll use that to demonstrate.
+`tidy` can also be run directly on `ExpressionSet` objects from `Biobase`. The `hammer` dataset we used above is an `ExpressionSet` object, so we'll use that to demonstrate.
 
 ```{r}
 library(Biobase)
@@ -235,6 +237,19 @@ head(tidy(hammer, addPheno = TRUE))
 
 ggplot(tidy(hammer, addPheno=TRUE), aes(x=protocol, y=log(value))) +
   geom_boxplot() + ggtitle("Boxplot Showing Effect of Protocol on Expression")
+```
+
+##MSnSet Objects
+
+`tidy` can also be run directly on `MSnSet` objects from `MSnbase`, which as specialised containers for quantitative proteomics data.
+
+```{r}
+library(MSnbase)
+data(msnset)
+
+head(tidy(msnset))
+
+head(tidy(msnset, addPheno = TRUE))
 ```
 
 # Note on returned values
