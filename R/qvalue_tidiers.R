@@ -57,8 +57,8 @@
 #' # show the chosen value
 #' g + geom_hline(yintercept=q$pi0, lty=2)
 #' }
-#' @import broom
-#' @importFrom dplyr mutate select filter tbl_dt count
+#' @import broom dplyr
+#' @importFrom tidyr gather spread
 #' @S3method tidy qvalue
 #' @export tidy.qvalue
 tidy.qvalue <- function(x, ...) {

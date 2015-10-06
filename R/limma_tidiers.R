@@ -17,8 +17,6 @@
 #' @return The output of tidying functions is always a data frame without
 #' rownames.
 #'
-#' @import tidyr
-#'
 #' @examples
 #' if (require("limma")) {
 #'     # create random data and design

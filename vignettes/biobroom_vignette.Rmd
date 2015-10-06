@@ -262,18 +262,6 @@ ggplot(tidy(hammer, addPheno=TRUE), aes(x=protocol, y=log(value))) +
   geom_boxplot() + ggtitle("Boxplot Showing Effect of Protocol on Expression")
 ```
 
-##MSnSet Objects
-
-`tidy` can also be run directly on `MSnSet` objects from `MSnbase`, which as specialised containers for quantitative proteomics data.
-
-```{r}
-library(MSnbase)
-data(msnset)
-
-head(tidy(msnset))
-
-head(tidy(msnset, addPheno = TRUE))
-```
 
 # Note on returned values
 
