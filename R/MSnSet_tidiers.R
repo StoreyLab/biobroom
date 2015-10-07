@@ -28,7 +28,8 @@
 #'   \item{sample}{sample name (from column names)}
 #'   \item{value}{protein quantitation data}
 #'
-#' @export
+#' @S3method tidy MSnSet
+#' @export tidy.MSnSet
 tidy.MSnSet <- function(x, addPheno=FALSE, ...) {
     expressions <- fix_data_frame(Biobase::exprs(x), newcol="protein")
     ret <- expressions %>% tidyr::gather(sample.id, value, -protein)

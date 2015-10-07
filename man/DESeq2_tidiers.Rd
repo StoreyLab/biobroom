@@ -65,8 +65,8 @@ if (require("DESeq2")) {
     tidy(dds, colData=TRUE)
 
     # add a noise confounding effect
-    dds@colData$noise <- rnorm(nrow(dds@colData))
-    dds@design <- (~ condition + noise)
+    colData(dds)$noise <- rnorm(nrow(colData(dds)))
+    design(dds) <- (~ condition + noise)
 
     # perform differential expression tests
     ddsres <- DESeq(dds, test = "Wald")
