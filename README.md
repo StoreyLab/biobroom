@@ -13,12 +13,7 @@ biobroom implements tidying methods for both S3 and S4 classes. Objects that can
 Installation
 ------------
 
-First install the package's requirements:
-
-    source("http://bioconductor.org/biocLite.R")
-    biocLite(c("Biobase", "limma", "edgeR", "DESeq2", "GenomicRanges", "MSnbase"))
-
-Then the package can be installed with  (requires [devtools](https://github.com/hadley/devtools)):
+The package can be installed with  (requires [devtools](https://github.com/hadley/devtools)):
 
     devtools::install_github("StoreyLab/biobroom")
 
