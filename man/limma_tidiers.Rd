@@ -4,6 +4,8 @@
 \alias{augment.MArrayLM}
 \alias{glance.MArrayLM}
 \alias{limma_tidiers}
+\alias{tidy.EList}
+\alias{tidy.MAList}
 \alias{tidy.MArrayLM}
 \title{Tidiers for the output of limma (linear models for microarray analysis)}
 \usage{
@@ -12,9 +14,13 @@
 \method{augment}{MArrayLM}(x, data, ...)
 
 \method{glance}{MArrayLM}(x, ...)
+
+\method{tidy}{MAList}(x, ...)
+
+\method{tidy}{EList}(x, ...)
 }
 \arguments{
-\item{x}{MArrayLM object}
+\item{x}{\code{MArrayLM}, \code{MAList}, \code{Elist} object}
 
 \item{intercept}{whether the \code{(Intercept)} term should be included
 (default FALSE)}
@@ -62,11 +68,28 @@ added by \code{lmFit} and \code{eBayes}:
   \item{rank}{rank of design matrix}
   \item{df.prior}{empirical Bayesian prior degrees of freedom}
   \item{s2.prior}{empirical Bayesian prior residual standard deviation}
+
+\code{tidy} returns a data frame with one row per gene-sample
+combination, with columns
+  \item{gene}{gene name}
+  \item{sample}{sample name (from column names)}
+  \item{value}{expressions on log2 scale}
+
+\code{tidy} returns a data frame with one row per gene-sample
+combination, with columns
+  \item{gene}{gene name}
+  \item{sample}{sample name (from column names)}
+  \item{value}{expressions on log2 scale}
+  \item{weight}{present if \code{weights} is set}
 }
 \description{
 Tidy, augment, and glance methods for MArrayLM objects, which contain the
 results of gene-wise linear models to microarray datasets. This class is
 the output of the lmFit and eBayes functions.
+
+Tidying method for a MA list
+
+Tidy an EList expression object
 }
 \details{
 Tidying this fit computes one row per coefficient per gene, while
