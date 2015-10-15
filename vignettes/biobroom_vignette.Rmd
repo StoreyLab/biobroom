@@ -156,17 +156,6 @@ tidy_results <- tidy(results)
 head(tidy_results)
 ```
 
-Next, we can calculate q-values and merge the object with `tidy_results` using the `augment` function:
-
-```{r}
-library(dplyr)
-
-qobj <- qvalue(tidy_results$p.value)
-
-qt_results <- augment(qobj, data = tidy_results)
-head(qt_results)
-```
-
 As an example to show how easy it is to manipulate the resulting object,
 `tidy_results`, we can use `ggplot2` to create a volcano plot of the p-values: 
 
