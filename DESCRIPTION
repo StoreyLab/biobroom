@@ -6,7 +6,7 @@ Maintainer: John D. Storey <jstorey@princeton.edu> and Andrew J. Bass <ajbass@pr
 Description: This package contains methods for converting standard objects constructed by bioinformatics packages, especially those in Bioconductor, and converting them to tidy data. It thus serves as a complement to the broom package, and follows the same the tidy, augment, glance division of tidying methods. Tidying data makes it easy to recombine, reshape and visualize bioinformatics analyses.
 biocViews: MultipleComparison, DifferentialExpression, Regression,
         GeneExpression, Proteomics, DataImport
-Depends: R (>= 3.2.0), broom
+Depends: R (>= 3.0.0), broom
 License: LGPL
 LazyData: true
 Imports: dplyr, tidyr, Biobase
