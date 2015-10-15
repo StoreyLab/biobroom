@@ -16,7 +16,7 @@ Bioconductor into a "tidy format". It serves as a complement to the popular [bro
 package, and follows the same division (`tidy`/`augment`/`glance`) of tidying
 methods.
 
-"Tidy data" is a data analysis paradigm that focuses on keeping data in long format -- essentially a single observation per row of a data table. For further information, please see [Hadley Wickham's seminal paper](http://vita.had.co.nz/papers/tidy-data.pdf) on the subject.  "Tidy" is not a normative statement about the quality of an object's structure. Rather, it is a technical specification about the choice of rows and columns. A tidied data frame is not "better" than an S4 object; it simply allows analysis with a different set of tools.
+"Tidy data" is a data analysis paradigm that focuses on keeping data formatted as a single observation per row of a data table. For further information, please see [Hadley Wickham's seminal paper](http://vita.had.co.nz/papers/tidy-data.pdf) on the subject.  "Tidy" is not a normative statement about the quality of an object's structure. Rather, it is a technical specification about the choice of rows and columns. A tidied data frame is not "better" than an S4 object; it simply allows analysis with a different set of tools.
 
 Tidying data makes it easy to recombine, reshape and visualize bioinformatics
 analyses. Objects that can be tidied include
