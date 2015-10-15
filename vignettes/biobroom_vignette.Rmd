@@ -156,7 +156,7 @@ tidy_results <- tidy(results)
 head(tidy_results)
 ```
 
-Next, we can calculate q-values using the `qvalue` package's `augment` function:
+Next, we can calculate q-values and merge the object with `tidy_results` using the `augment` function:
 
 ```{r}
 library(dplyr)
