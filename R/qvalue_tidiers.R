@@ -9,8 +9,7 @@
 #' data.frame with only the chosen pi0 value.
 #'
 #' @param x qvalue object
-#' @param data Original data, ignored (since the original p-values are stored)
-#' @param gene.names vector of gene names.
+#' @param data Original data
 #' @param ... extra arguments (not used)
 #'
 #' @return All tidying methods return a \code{data.frame} without rownames.
@@ -76,9 +75,12 @@ tidy.qvalue <- function(x, ...) {
 #'     \item{lfdr}{the local false discovery rate}
 #' @S3method augment qvalue
 #' @export augment.qvalue
-augment.qvalue <- function(x, data, gene.names = NULL, ...) {
-    if (is.null(gene.names)) gene.names = 1:length(x$pvalues)
-    df <- data.frame(id=gene.names, p.value=x$pvalues, q.value=x$qvalues, lfdr=x$lfdr, ...)
+augment.qvalue <- function(x, data, ...) {
+    df <- data.frame(p.value=x$pvalues, q.value=x$qvalues, lfdr=x$lfdr, ...)
+    if (!missing(data)) {
+        df <- cbind(as.data.frame(data), df)
+    }
+    df <- df[, !duplicated(colnames(df))]
     finish(df)
 }
 

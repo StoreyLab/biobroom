@@ -91,7 +91,12 @@ head(augment(qobj))
 head(glance(qobj))
 ```
 
-The gene names can be inputted into `augment` using the `gene.names` argument.
+The original data, or in this example the gene names, can be inputted into `augment` using the `data` argument:
+```{r}
+# create sample names
+df <- data.frame(gene = 1:length(hedenfalk$p))
+head(augment(qobj, data = df))
+```
 The tidied data can be used to easily create plots:
 
 ```{r}
@@ -151,8 +156,19 @@ tidy_results <- tidy(results)
 head(tidy_results)
 ```
 
+Next, we can calculate q-values using the `qvalue` package's `augment` function:
+
+```{r}
+library(dplyr)
+
+qobj <- qvalue(tidy_results$p.value)
+
+qt_results <- augment(qobj, data = tidy_results)
+head(qt_results)
+```
+
 As an example to show how easy it is to manipulate the resulting object,
-`tidy_result`, we can use `ggplot2` to create a volcano plot of the p-values: 
+`tidy_results`, we can use `ggplot2` to create a volcano plot of the p-values: 
 
 ```{r}
 ggplot(tidy_results, aes(x=estimate, y=log(p.value),
