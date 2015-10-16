@@ -1,6 +1,6 @@
 ---
 title: "biobroom Vignette"
-author: "Andrew Bass, Emily Nelson, David Robinson and John Storey"
+author: "Andrew J. Bass, Emily Nelson, David Robinson and John D. Storey"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
