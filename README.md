@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ajbass/biobroom.svg?branch=master)](https://travis-ci.org/ajbass/biobroom)
+
 biobroom: Tidying up computational biology
 ====================
 
