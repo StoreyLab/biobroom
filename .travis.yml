@@ -1,2 +1,24 @@
 language: r
 sudo: required
+bioc_required: true
+warnings_are_errors: true
+
+r_packages:
+  - rmarkdown
+  - dplyr
+  - tidyr
+  - broom
+  - plyr
+  - data.table
+  - ggplot2
+  - knitr
+  
+bioc_packages:
+  - Biobase
+  - limma
+  - DESeq2
+  - airway 
+  - GenomicRanges
+  - edgeR
+  - qvalue
+  - MSnbase
