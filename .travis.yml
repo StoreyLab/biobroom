@@ -2,6 +2,13 @@ language: r
 sudo: required
 bioc_required: true
 warnings_are_errors: true
+
+notifications:
+  email:
+    recipients:
+      - jstorey@princeton.edu
+      - ajbass@princeton.edu
+
 apt_packages:
   - libnetcdf-dev
 
