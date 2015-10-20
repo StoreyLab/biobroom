@@ -12,7 +12,7 @@
 #' @name SummarizedExperiment_tidiers
 #'
 #' @examples
-#' if (require("SummarizedExperiment")) {
+#' if (require("SummarizedExperiment", "airway")) {
 #'     library(airway)
 #'
 #'     se <- airway
