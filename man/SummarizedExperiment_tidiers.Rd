@@ -34,7 +34,7 @@ add per-sample information to a per-sample-per-gene data frame), but that
 are useful for some kinds of graphs and analyses.
 }
 \examples{
-if (require("SummarizedExperiment")) {
+if (require("SummarizedExperiment", "airway")) {
     library(airway)
 
     se <- airway
