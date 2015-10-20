@@ -22,7 +22,7 @@ combination, with columns
   \item{sample}{sample name (from column names)}
   \item{value}{expressions}
 
-If \code{addPheno} is TRUE then information from \code{\link{RangedSummarizedExperiment::colData}}
+If \code{addPheno} is TRUE then information from colData
 is added.
 }
 \description{
