@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/StoreyLab/biobroom.svg?branch=master)](https://travis-ci.org/ajbass/biobroom)
+[![Build Status](https://travis-ci.org/StoreyLab/biobroom.svg?branch=master)](https://travis-ci.org/StoreyLab/biobroom)
 <a href="http://www.bioconductor.org/packages/release/bioc/html/edge.html#since"><img border="0" src="http://www.bioconductor.org/shields/years-in-bioc/biobroom.svg"></a> <a href="http://bioconductor.org/packages/stats/bioc/biobroom.html"><img border="0" src="http://www.bioconductor.org/shields/downloads/biobroom.svg"></a> <a href="https://support.bioconductor.org/t/biobroom/"><img border="0" src="http://www.bioconductor.org/shields/posts/biobroom.svg" ></a> <a href="http://www.bioconductor.org/packages/release/bioc/html/biobroom.html#svn_source"><img border="0" src="http://www.bioconductor.org/shields/commits/bioc/biobroom.svg"></a>
 biobroom: Tidying up computational biology
 ====================
@@ -8,6 +8,7 @@ This package contains methods for converting standard objects constructed by bio
 biobroom implements tidying methods for both S3 and S4 classes. Objects that can be tidied include
 
 * ExpressionSet objects
+* RangedSummarizedExperiment objects 
 * MSnSet objects
 * per-gene differential expression tests from limma, edgeR, and DESeq2
 * [qvalue](http://www.bioconductor.org/packages/release/bioc/html/qvalue.html) multiple hypothesis testing objects
@@ -27,6 +28,7 @@ Find out more about the provided methods with:
     ?limma_tidiers
     ?ExpressionSet_tidiers
     ?MSnSet_tidiers
+    ?SummarizedExperiment_tidiers
 
 Note on returned values
 ------------
