@@ -10,6 +10,7 @@ notifications:
       - ajbass@princeton.edu
 
 apt_packages:
+  - netcdf-bin
   - libnetcdf-dev
 
 r_packages:
