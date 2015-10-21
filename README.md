@@ -28,6 +28,8 @@ Find out more about the provided methods with:
     ?limma_tidiers
     ?ExpressionSet_tidiers
     ?MSnSet_tidiers
+    ?GRangesList
+    ?GRanges
     ?SummarizedExperiment_tidiers
 
 Note on returned values
