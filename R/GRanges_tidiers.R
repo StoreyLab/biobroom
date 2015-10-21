@@ -54,7 +54,7 @@
 #' @S3method tidy GRanges
 #' @export tidy.GRanges
 tidy.GRanges <- function(x) {
-  x.dt = as.data.table(x@ranges)
+  x.dt = as.data.frame(x@ranges)
   
   x.dt$strand = unlist(mapply(x@strand@values, x@strand@lengths, FUN = function(value, length) {
     as.character(rep(value, length))
@@ -74,14 +74,14 @@ tidy.GRanges <- function(x) {
 #' @S3method tidy GRangesList
 #' @export tidy.GRangesList
 tidy.GRangesList <- function(x) {
-  x.dt = tidy.GRanges(x@unlistData)
+  x.dt = tidy(x@unlistData)
   
-  part.dt = as.data.table(x@partitioning)
+  part.dt = as.data.frame(x@partitioning)
   
   x.dt$item = unlist(mapply(as.factor(part.dt$names), as.numeric(part.dt$width), SIMPLIFY = FALSE, FUN = function(value, length) {
     as.character(rep(value, length))
   }), use.names=FALSE, recursive=FALSE)
-  x.dt
+  finish(x.dt)
 }
 
 
@@ -93,7 +93,7 @@ glance.GRanges <- function(x) {
   x.dt = tidy(x)
   ret = data.frame(ranges = length(gr), 
                    sequences = length(unique(x.dt$seqname)))
-  ret
+  finish(ret)
 }
 
 #' @import broom dplyr
@@ -105,5 +105,5 @@ glance.GRangesList <- function(x) {
   ret = data.frame(ranges = length(gr), 
                    sequences = length(unique(x.dt$seqname)),
                    lists = length(unique(x.dt$item)))
-  ret
+  finish(ret)
 }
