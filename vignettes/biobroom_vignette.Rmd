@@ -21,7 +21,9 @@ methods.
 Tidying data makes it easy to recombine, reshape and visualize bioinformatics
 analyses. Objects that can be tidied include
 
-* `ExpressionSet` object,
+* `ExpressionSet` object, 
+* `GRanges` and `GRangesList` objects,
+* `RangedSummarizedExperiment` object,
 * `MSnSet` object,
 * per-gene differential expression tests from `limma`, `edgeR`, and `DESeq2`,
 * `qvalue` object for multiple hypothesis testing.
