@@ -66,7 +66,7 @@ tidy.GRanges <- function(x) {
   
   x.dt = as.data.frame(cbind(x.dt, x@elementMetadata))
   
-  x.dt
+  finish(x.dt)
 }
 
 #' @import broom dplyr
