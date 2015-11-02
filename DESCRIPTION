@@ -13,4 +13,5 @@ Imports: dplyr, tidyr, Biobase
 Suggests: limma, DESeq2, airway, ggplot2, plyr, GenomicRanges, edgeR,
         qvalue, knitr, data.table, MSnbase, SummarizedExperiment
 VignetteBuilder: knitr
-
+URL: https://github.com/StoreyLab/biobroom
+BugReports: https://github.com/StoreyLab/biobroom/issues

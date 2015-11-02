@@ -36,7 +36,7 @@ tidy.ExpressionSet <- function(x, addPheno=FALSE, ...) {
     if (addPheno) {
         pdat <- pData(x)
         ret <- unrowname(as.data.frame(cbind(gene=ret$gene,
-                                             pdat[ret$sample.id, ],
+                                             pdat[as.character(ret$sample), , drop=FALSE],
                                              value=ret$value)))
     }
     finish(ret)

@@ -6,7 +6,9 @@
 #'
 #' @name edgeR_tidiers
 #'
-#' @param x DGEExact object
+#' @param x DGEExact, DGEList object
+#' @param data merge data to augment. This is particularly useful when merging
+#' gene names or other per-gene information. Default is NULL.
 #'
 #' @examples
 #' if (require("edgeR")) {
@@ -33,6 +35,58 @@ tidy.DGEExact <- function(x, ...) {
     finish(ret)
 }
 
+#' @rdname edgeR_tidiers
+#'
+#' @param addSamples Merge information from samples. Default is FALSE.
+#'
+#' @return \code{tidy} defaults to tidying the counts in
+#' the dataset:
+#'   \item{gene}{gene ID}
+#'   \item{sample}{sample ID}
+#'   \item{count}{number of reads in this gene in this sample}
+#'
+#' If \code{addSamples = TRUE}, it also merges this with the sample information present
+#' in \code{x$samples}.
+#'
+#'
+#' @S3method tidy DGEList
+#' @export tidy.DGEList
+tidy.DGEList <- function(x, addSamples = FALSE, ...) {
+    if (is.null(rownames(x$counts)) | all(rownames(x$counts) == 1:nrow(x$counts))) {
+      rownames(x$counts) <- paste0("g", 1:nrow(x$counts))
+    }
+    expressions <- fix_data_frame(x$counts,  newnames = colnames(x$counts), newcol="gene")
+    ret <- expressions %>% tidyr::gather(sample.id, value, -gene)
+    if (addSamples) {
+        sdat <- x$samples
+        ret <- unrowname(as.data.frame(cbind(gene=ret$gene,
+                                             sample.id = ret$sample.id,
+                                             sdat[as.character(ret$sample), , drop=FALSE],
+                                             value=ret$value)))
+    }
+
+    finish(ret)
+}
+
+#' @rdname edgeR_tidiers
+#' @return \code{augment} returns per-gene information (DGEList only)
+#' @S3method augment DGEList
+#' @export augment.DGEList
+augment.DGEList <- function(x, data = NULL, ...) {
+    ret <- list()
+    # other columns that can be combined (include only those that exist)
+    othernames <- c("genes", "AveLogCPM", "common.dispersion", "trended.dispersion", "tagwise.dispersion")
+    #newnames <- c("statistic", "p.value", "lod")
+    for (i in seq_along(othernames)) {
+        if (!is.null(x[[othernames[i]]]))
+            ret[[othernames[i]]] <- as.numeric(x[[othernames[i]]])
+    }
+    if (!missing(data)) {
+        ret <- cbind(as.data.frame(data), as.data.frame(ret))
+    }
+    if (is.null(names(list()))) stop("No columns to augment in DGEList")
+    finish(as.data.frame(ret))
+}
 
 #' @rdname edgeR_tidiers
 #'
@@ -41,7 +95,7 @@ tidy.DGEExact <- function(x, ...) {
 #' significance; can be any in p.adjust.methods
 #' @param ... extra arguments (not used)
 #'
-#' @return \code{glance} returns one row with the columns
+#' @return \code{glance} returns one row with the columns (DGEExact only)
 #'   \item{significant}{number of significant genes using desired adjustment
 #'   method and confidence level}
 #'   \item{comparison}{The pair of groups compared by edgeR, delimited by /}
