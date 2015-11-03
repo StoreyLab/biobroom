@@ -167,15 +167,21 @@ tidy.MAList <- function(x, ...) {
 #'   \item{sample}{sample name (from column names)}
 #'   \item{value}{expressions on log2 scale}
 #'   \item{weight}{present if \code{weights} is set}
+#'   \item{other columns}{if present and if \code{addTargets} is set}
 #' @S3method tidy EList
 #' @export tidy.EList
-tidy.EList <- function(x, ...) {
-    ret <- tidy_matrix(x$E)
-    if (!is.null(x$weights)) {
-        rownames(x$weights) <- rownames(x$E)
-        ret$weight <- tidy_matrix(x$weights)$value
-    }
-    ret
+tidy.EList <- function(x, addTargets=FALSE, ...) {
+  ret <- tidy_matrix(x$E)
+  if (!is.null(x$weights)) {
+    rownames(x$weights) <- rownames(x$E)
+    ret$weight <- tidy_matrix(x$weights)$value
+  }
+  if(addTargets) {
+    targets = x$targets
+    targets$sample = unique(ret$sample)
+    ret = ret %>% inner_join(targets)
+  }
+  ret
 }
 
 tidy_matrix <- function(x, ...) {
