@@ -29,6 +29,8 @@
 
 \item{data}{original expression matrix; if missing, \code{augment} returns only
 the computed per-gene statistics}
+
+\item{addTargets}{Add sample level information. Default is FALSE.}
 }
 \value{
 The output of tidying functions is always a data frame without

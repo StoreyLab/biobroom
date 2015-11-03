@@ -160,7 +160,7 @@ tidy.MAList <- function(x, ...) {
 #' Tidy an EList expression object
 #'
 #' @rdname limma_tidiers
-#'
+#' @param addTargets Add sample level information. Default is FALSE.
 #' @return \code{tidy} returns a data frame with one row per gene-sample
 #' combination, with columns
 #'   \item{gene}{gene name}
