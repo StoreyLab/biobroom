@@ -17,7 +17,7 @@
 
 \method{tidy}{MAList}(x, ...)
 
-\method{tidy}{EList}(x, ...)
+\method{tidy}{EList}(x, addTargets = FALSE, ...)
 }
 \arguments{
 \item{x}{\code{MArrayLM}, \code{MAList}, \code{Elist} object}
@@ -81,6 +81,7 @@ combination, with columns
   \item{sample}{sample name (from column names)}
   \item{value}{expressions on log2 scale}
   \item{weight}{present if \code{weights} is set}
+  \item{other columns}{if present and if \code{addTargets} is set}
 }
 \description{
 Tidy, augment, and glance methods for MArrayLM objects, which contain the
