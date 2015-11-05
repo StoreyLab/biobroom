@@ -38,7 +38,7 @@ tidy_sva <- function(x, addVar = NULL, ...) {
     df <- data.frame(sv = x$sv)
     colnames(df) <- paste0("sv", 1:dim(df)[2])
     if (!is.null(addVar)) {
-        if (nrow(addVar) != nrow(df)) error("number of rows must be the same as
+        if (nrow(addVar) != nrow(df)) stop("number of rows must be the same as
                                             the number of columns in original data")
         df <- cbind(as.data.frame(data), df)
     }
