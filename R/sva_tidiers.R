@@ -40,7 +40,7 @@ tidy_sva <- function(x, addVar = NULL, ...) {
     if (!is.null(addVar)) {
         if (nrow(addVar) != nrow(df)) stop("number of rows must be the same as
                                             the number of columns in original data")
-        df <- cbind(as.data.frame(data), df)
+        df <- cbind(as.data.frame(addVar), df)
     }
     df <- df[, !duplicated(colnames(df))]
     finish(df)
