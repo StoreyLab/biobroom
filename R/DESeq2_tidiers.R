@@ -88,6 +88,7 @@ tidy.DESeqDataSet <- function(x, colData = FALSE, intercept = FALSE, ...) {
     if (colData) {
         cdat <- data.frame(GenomicRanges::colData(x))
         ret <- unrowname(as.data.frame(cbind(gene=ret$gene,
+                                             sample = ret$sample,
                                              cdat[as.character(ret$sample), , drop=FALSE],
                                              count=ret$count)))
     }
