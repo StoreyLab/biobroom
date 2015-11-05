@@ -37,6 +37,7 @@ tidy.RangedSummarizedExperiment <- function(x, addPheno=FALSE, ...) {
     if (addPheno) {
         pdat <- as.data.frame(colData(x))
         ret <- unrowname(as.data.frame(cbind(gene=ret$gene,
+                                             sample = ret$sample,
                                              pdat[as.character(ret$sample), , drop=FALSE],
                                              value=ret$value)))
     }

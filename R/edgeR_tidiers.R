@@ -60,7 +60,7 @@ tidy.DGEList <- function(x, addSamples = FALSE, ...) {
     if (addSamples) {
         sdat <- x$samples
         ret <- unrowname(as.data.frame(cbind(gene=ret$gene,
-                                             sample.id = ret$sample.id,
+                                             sample = ret$sample.id,
                                              sdat[as.character(ret$sample), , drop=FALSE],
                                              value=ret$value)))
     }
