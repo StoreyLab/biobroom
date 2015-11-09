@@ -83,14 +83,18 @@ tidy.DESeqDataSet <- function(x, colData = FALSE, intercept = FALSE, ...) {
 
     # otherwise, tidy the expression data within it
     expressions <- fix_data_frame(counts(x), newcol="gene")
-    ret <- expressions %>% tidyr::gather(sample, count, -gene)
+    ret <- expressions %>%
+        tidyr::gather(sample, count, -gene) %>%
+        dplyr::mutate(sample=as.character(sample))
 
     if (colData) {
-        cdat <- data.frame(GenomicRanges::colData(x))
-        ret <- unrowname(as.data.frame(cbind(gene=ret$gene,
-                                             sample = ret$sample,
-                                             cdat[as.character(ret$sample), , drop=FALSE],
-                                             count=ret$count)))
+        cdat <- data.frame(GenomicRanges::colData(x), stringsAsFactors=FALSE)
+        rownames(cdat) <- colnames(x)
+        ret <- cbind(
+            ret[, c('gene', 'sample')],
+            cdat[ret$sample,,drop=FALSE],
+            count=ret$count) %>%
+            unrowname
     }
     finish(ret)
 }

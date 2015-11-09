@@ -1,17 +1,41 @@
 Package: biobroom
 Title: Turn Bioconductor objects into tidy data frames
-Version: 1.1.1
-Author: David G. Robinson, Andrew J. Bass, Emily Nelson, John D. Storey, with contributions from Steve Lianoglou, Laurent Gatto
-Maintainer: John D. Storey <jstorey@princeton.edu> and Andrew J. Bass <ajbass@princeton.edu>
-Description: This package contains methods for converting standard objects constructed by bioinformatics packages, especially those in Bioconductor, and converting them to tidy data. It thus serves as a complement to the broom package, and follows the same the tidy, augment, glance division of tidying methods. Tidying data makes it easy to recombine, reshape and visualize bioinformatics analyses.
+Version: 1.1.2
+Author: David G. Robinson, Andrew J. Bass, Emily Nelson, John D. Storey, with
+    contributions from Steve Lianoglou, Laurent Gatto
+Maintainer: John D. Storey <jstorey@princeton.edu> and Andrew J. Bass
+    <ajbass@princeton.edu>
+Description: This package contains methods for converting standard objects
+    constructed by bioinformatics packages, especially those in Bioconductor,
+    and converting them to tidy data. It thus serves as a complement to the broom
+    package, and follows the same the tidy, augment, glance division of tidying
+    methods. Tidying data makes it easy to recombine, reshape and visualize
+    bioinformatics analyses.
 biocViews: MultipleComparison, DifferentialExpression, Regression,
-        GeneExpression, Proteomics, DataImport
-Depends: R (>= 3.0.0), broom
+    GeneExpression, Proteomics, DataImport
+Depends:
+    R (>= 3.0.0),
+    broom
 License: LGPL
 LazyData: true
-Imports: dplyr, tidyr, Biobase
-Suggests: limma, DESeq2, airway, ggplot2, plyr, GenomicRanges, edgeR,
-        qvalue, knitr, data.table, MSnbase, SummarizedExperiment
+Imports:
+    dplyr,
+    tidyr,
+    Biobase
+Suggests:
+    limma,
+    DESeq2,
+    airway,
+    ggplot2,
+    plyr,
+    GenomicRanges,
+    edgeR,
+    qvalue,
+    knitr,
+    data.table,
+    MSnbase,
+    SummarizedExperiment
 VignetteBuilder: knitr
 URL: https://github.com/StoreyLab/biobroom
 BugReports: https://github.com/StoreyLab/biobroom/issues
+RoxygenNote: 5.0.0
