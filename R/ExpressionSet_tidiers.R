@@ -31,14 +31,18 @@
 #' @export tidy.ExpressionSet
 tidy.ExpressionSet <- function(x, addPheno=FALSE, ...) {
     expressions <- fix_data_frame(Biobase::exprs(x), newcol="gene")
-    ret <- expressions %>% tidyr::gather(sample.id, value, -gene)
+    ret <- expressions %>%
+        tidyr::gather(sample, value, -gene) %>%
+        dplyr::mutate(sample=as.character(sample))
 
     if (addPheno) {
         pdat <- pData(x)
-        ret <- unrowname(as.data.frame(cbind(gene=ret$gene,
-                                             sample = ret$sample,
-                                             pdat[as.character(ret$sample), , drop=FALSE],
-                                             value=ret$value)))
+        rownames(pdat) <- colnames(x)
+        ret <- cbind(
+            ret[, c('gene', 'sample')],
+            pdat[ret$sample,,drop=FALSE],
+            value=ret$value) %>%
+            unrowname
     }
     finish(ret)
 }

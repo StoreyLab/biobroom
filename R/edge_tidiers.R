@@ -29,14 +29,17 @@ tidy.deSet <- function(x, addPheno=FALSE, ...) {
     colnames(exprs(x)) <- paste0("sample", 1:ncol(exprs(x)))
   }
   expressions <- fix_data_frame(Biobase::exprs(x), newcol="gene")
-  ret <- expressions %>% tidyr::gather(sample.id, value, -gene)
+  ret <- expressions %>%
+      tidyr::gather(sample, value, -gene)%>%
+      dplyr::mutate(sample=as.character(sample))
+
 
   if (addPheno) {
     pdat <- pData(x)
     rownames(pdat) <- colnames(exprs(x))
     ret <- unrowname(as.data.frame(cbind(gene=ret$gene,
-                                         sample = ret$sample,
-                                         pdat[as.character(ret$sample), , drop=FALSE],
+                                         sample=ret$sample,
+                                         pdat[ret$sample, , drop=FALSE],
                                          value=ret$value)))
   }
   finish(ret)
@@ -66,7 +69,8 @@ augment.deSet <- function(x, data, ...) {
 #' @export glance.deSet
 glance.deSet <- function(x, ...) {
     df <- data.frame(full.model = as.character(x@full.model)[2],
-                     null.model = as.character(x@null.model)[2], stringsAsFactors=FALSE)
+                     null.model = as.character(x@null.model)[2],
+                     stringsAsFactors=FALSE)
     finish(df)
 }
 
