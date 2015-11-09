@@ -15,6 +15,7 @@ apt_packages:
   - libnetcdf-dev
 
 r_packages:
+  - testthat
   - rmarkdown
   - dplyr
   - tidyr
