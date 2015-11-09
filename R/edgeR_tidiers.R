@@ -55,14 +55,18 @@ tidy.DGEList <- function(x, addSamples = FALSE, ...) {
     if (is.null(rownames(x$counts)) | all(rownames(x$counts) == 1:nrow(x$counts))) {
       rownames(x$counts) <- paste0("g", 1:nrow(x$counts))
     }
-    expressions <- fix_data_frame(x$counts,  newnames = colnames(x$counts), newcol="gene")
-    ret <- expressions %>% tidyr::gather(sample.id, value, -gene)
+    expressions <- fix_data_frame(x$counts, newnames = colnames(x$counts), newcol="gene")
+    ret <- expressions %>%
+        tidyr::gather(sample, count, -gene) %>%
+        dplyr::mutate(sample=as.character(sample))
     if (addSamples) {
         sdat <- x$samples
-        ret <- unrowname(as.data.frame(cbind(gene=ret$gene,
-                                             sample = ret$sample.id,
-                                             sdat[as.character(ret$sample), , drop=FALSE],
-                                             value=ret$value)))
+        rownames(sdat) <- colnames(x)
+        ret <- cbind(
+            ret[, c('gene', 'sample')],
+            sdat[ret$sample,,drop=FALSE],
+            count=ret$count) %>%
+            unrowname
     }
 
     finish(ret)
