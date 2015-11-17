@@ -5,13 +5,16 @@
 \alias{tidy.ExpressionSet}
 \title{Tidying methods for Biobase's ExpressionSet objects}
 \usage{
-\method{tidy}{ExpressionSet}(x, addPheno = FALSE, ...)
+\method{tidy}{ExpressionSet}(x, addPheno = FALSE, assay = "exprs", ...)
 }
 \arguments{
 \item{x}{ExpressionSet object}
 
 \item{addPheno}{whether columns should be included in the tidied output
 for those in the ExpressionSet's phenoData}
+
+\item{assay}{The name of the \code{\link[Biobase]{assayDataElement}} to use
+as the values to tidy. Defaults to \code{"exprs"}.}
 
 \item{...}{extra arguments (not used)}
 }

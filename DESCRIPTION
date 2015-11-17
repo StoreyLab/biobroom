@@ -38,4 +38,4 @@ Suggests:
 VignetteBuilder: knitr
 URL: https://github.com/StoreyLab/biobroom
 BugReports: https://github.com/StoreyLab/biobroom/issues
-RoxygenNote: 5.0.0
+RoxygenNote: 5.0.1
