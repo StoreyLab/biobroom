@@ -5,13 +5,17 @@
 \alias{tidy.RangedSummarizedExperiment}
 \title{Tidying methods for Biobase's SummarizedExperiment objects}
 \usage{
-\method{tidy}{RangedSummarizedExperiment}(x, addPheno = FALSE, ...)
+\method{tidy}{RangedSummarizedExperiment}(x, addPheno = FALSE,
+  assay = SummarizedExperiment::assayNames(x)[1L], ...)
 }
 \arguments{
 \item{x}{SummarizedExperiment object}
 
 \item{addPheno}{whether columns should be included in the tidied output
 for those in the SummarizedExperiment colData}
+
+\item{assay}{Which assay to return as the \code{value} column. Defaults to
+\code{assays(x)[[1L]]}}
 
 \item{...}{extra arguments (not used)}
 }
@@ -35,7 +39,7 @@ are useful for some kinds of graphs and analyses.
 }
 \examples{
 if (require("SummarizedExperiment", "airway")) {
-    library(airway)
+    data(airway)
 
     se <- airway
     tidy(se)

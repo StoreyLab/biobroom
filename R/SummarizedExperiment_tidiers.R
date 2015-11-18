@@ -3,6 +3,8 @@
 #' @param x SummarizedExperiment object
 #' @param addPheno whether columns should be included in the tidied output
 #' for those in the SummarizedExperiment colData
+#' @param assay Which assay to return as the \code{value} column. Defaults to
+#'   \code{assays(x)[[1L]]}
 #' @param ... extra arguments (not used)
 #'
 #' @details \code{addPheno=TRUE} adds columns that are redundant (since they
@@ -13,7 +15,7 @@
 #'
 #' @examples
 #' if (require("SummarizedExperiment", "airway")) {
-#'     library(airway)
+#'     data(airway)
 #'
 #'     se <- airway
 #'     tidy(se)
@@ -30,16 +32,27 @@
 #'
 #' @S3method tidy RangedSummarizedExperiment
 #' @export tidy.RangedSummarizedExperiment
-tidy.RangedSummarizedExperiment <- function(x, addPheno=FALSE, ...) {
-    expressions <- fix_data_frame(SummarizedExperiment::assays(x)$counts, newcol="gene")
-    ret <- expressions %>% tidyr::gather(sample.id, value, -gene)
+#' @importFrom SummarizedExperiment assays assayNames
+tidy.RangedSummarizedExperiment <- function(x, addPheno=FALSE,
+                                            assay=SummarizedExperiment::assayNames(x)[1L],
+                                            ...) {
+    if (!assay %in% SummarizedExperiment::assayNames(x)) {
+        stop("Invalid assay specified: ", assay)
+    }
+    expressions <- SummarizedExperiment::assays(x)[[assay]] %>%
+        fix_data_frame(newcol="gene")
+    ret <- expressions %>%
+        tidyr::gather(sample, value, -gene) %>%
+        dplyr::mutate(sample=as.character(sample))
 
     if (addPheno) {
         pdat <- as.data.frame(colData(x))
-        ret <- unrowname(as.data.frame(cbind(gene=ret$gene,
-                                             sample = ret$sample,
-                                             pdat[as.character(ret$sample), , drop=FALSE],
-                                             value=ret$value)))
+        rownames(pdat) <- colnames(x)
+        ret <- cbind(
+            ret[, c('gene', 'sample')],
+            pdat[ret$sample,,drop=FALSE],
+            value=ret$value) %>%
+            unrowname
     }
     finish(ret)
 }
