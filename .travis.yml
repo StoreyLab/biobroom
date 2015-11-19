@@ -12,9 +12,7 @@ before_install: echo "options(repos = c(CRAN='http://cran.rstudio.com'))" > ~/.R
 notifications:
   email:
     recipients:
-      - jstorey@princeton.edu
       - ajbass@princeton.edu
-      - emilysn@princeton.edu
 
 apt_packages:
   - netcdf-bin
