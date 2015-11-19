@@ -13,38 +13,36 @@ voomWithQualityWeights  EList          edgeR
 ExpressionSet           eSet           Biobase
 "), stringsAsFactors=FALSE, header=TRUE)
 
-#' Makes example datasets for different objects we tidy.
-#'
-#' This is simply a wrapper to the \code{\link[DESeq2]{makeExampleDESeqDataSet}}
-#' function, which then transforms the output to the appropriate type.
-#'
-#' @export
-#'
-#' @param type The type of object to output. So far we can build objects for
-#'   \itemize{
-#'     \item{\code{"DESeq2"}}{
-#'         A \code{\link[DESeq2]{DESeqDataSet}}
-#'     }
-#'     \item{\code{"edgeR"}}{
-#'         A \code{\link[edgeR]{DGEList}}
-#'     }
-#'     \item{\code{"limma"}}{
-#'         An \code{\link[limma]{EList}}
-#'     }
-#'     \item{\code{"voom"}}{
-#'         An \code{\link[limma]{EList}} which results from passing a
-#'         \code{\link[edgeR]{DGEList}} through \code{\link[limma]{voom}}
-#'     }
-#'     \item{\code{"voomWithQualityWeights"}}{
-#'         Same as voom, but run through
-#'         \code{\link[limma]{voomWithQualityWeights}}
-#'     }
-#'     \item{\code{"ExpressionSet"}}{
-#'       An \code{\link[Biobase]{ExpressionSet}}
-#'     }
-#'   }
-#'
-#' @return The desired output object
+# Makes example datasets for different objects we tidy.
+#
+# This is simply a wrapper to the \code{\link[DESeq2]{makeExampleDESeqDataSet}}
+# function, which then transforms the output to the appropriate type.
+
+# @param type The type of object to output. So far we can build objects for
+#   \itemize{
+#    \item{\code{"DESeq2"}}{
+#         A \code{\link[DESeq2]{DESeqDataSet}}
+#     }
+#     \item{\code{"edgeR"}}{
+#         A \code{\link[edgeR]{DGEList}}
+#     }
+#     \item{\code{"limma"}}{
+#         An \code{\link[limma]{EList}}
+#     }
+#     \item{\code{"voom"}}{
+#         An \code{\link[limma]{EList}} which results from passing a
+#         \code{\link[edgeR]{DGEList}} through \code{\link[limma]{voom}}
+#     }
+#     \item{\code{"voomWithQualityWeights"}}{
+#         Same as voom, but run through
+#         \code{\link[limma]{voomWithQualityWeights}}
+#     }
+#     \item{\code{"ExpressionSet"}}{
+#       An \code{\link[Biobase]{ExpressionSet}}
+#     }
+#   }
+#
+# @return The desired output object
 makeExampleDataSet <-
     function(type = 'DESeq2',
              n = 1000, m = 12, betaSD = 0, interceptMean = 4,

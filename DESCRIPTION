@@ -29,6 +29,8 @@ Suggests:
     ggplot2,
     plyr,
     GenomicRanges,
+    testthat,
+    magrittr,
     edgeR,
     qvalue,
     knitr,
