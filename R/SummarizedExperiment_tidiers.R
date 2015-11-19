@@ -32,7 +32,6 @@
 #'
 #' @S3method tidy RangedSummarizedExperiment
 #' @export tidy.RangedSummarizedExperiment
-#' @importFrom SummarizedExperiment assays assayNames
 tidy.RangedSummarizedExperiment <- function(x, addPheno=FALSE,
                                             assay=SummarizedExperiment::assayNames(x)[1L],
                                             ...) {
