@@ -1,11 +1,10 @@
 ## These functions are meant to facilitate testing only
 
-# This list holds the options for the `type` parameter in
-# `makeExampleDataSet` in its `names()`, its values are lists that have the
-# `$type` of object that should be returned, and the `$pacakge` that should be
-# loadeded to create it.
+# This data.frame the options for the `type` parameter in
+# `makeExampleDataSet` in its `$type` column, as well as other values required
+# to create and verify the object that should be created.
 .ds.info <- read.table(textConnection("
-type                   class          package
+type                    class          package
 DESeq2                  DESeqDataSet   DESeq2
 edgeR                   DGEList        edgeR
 limma                   EList          edgeR
@@ -105,6 +104,11 @@ makeExampleDataSet <-
         fData(out) <- fd
     } else {
         stop(type, " not yet accounted for")
+    }
+
+    if (!is(out, ds.info$class)) {
+        warning("The output object is a ", class(out), " but we expected ",
+                ds.info$class)
     }
 
     out
