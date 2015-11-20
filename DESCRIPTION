@@ -2,7 +2,7 @@ Package: biobroom
 Title: Turn Bioconductor objects into tidy data frames
 Version: 1.1.2
 Author: Andrew J. Bass, David G. Robinson, Steve Lianoglou, Emily Nelson, John D. Storey, with
-    contributions Laurent Gatto
+    contributions from Laurent Gatto
 Maintainer: John D. Storey <jstorey@princeton.edu> and Andrew J. Bass
     <ajbass@princeton.edu>
 Description: This package contains methods for converting standard objects
