@@ -88,7 +88,7 @@ tidy.DESeqDataSet <- function(x, colData = FALSE, intercept = FALSE, ...) {
         dplyr::mutate(sample=as.character(sample))
 
     if (colData) {
-        cdat <- data.frame(GenomicRanges::colData(x), stringsAsFactors=FALSE)
+        cdat <- data.frame(SummarizedExperiment::colData(x), stringsAsFactors=FALSE)
         rownames(cdat) <- colnames(x)
         ret <- cbind(
             ret[, c('gene', 'sample')],
