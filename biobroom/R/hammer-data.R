@@ -1,0 +1,23 @@
+#' @title ExpressionSet results from Hammer et al 2010
+#'
+#' @docType data
+#'
+#' @description An ExpressionSet containing the results of the Hammer et al
+#' 2010 RNA-Seq study on the nervous system of rats (Hammer et al 2010).
+#'
+#' This was downloaded from the ReCount database of analysis-ready RNA-Seq
+#' datasets (Frazee et al 2011).
+#'
+#' Hammer, P., Banck, M. S., Amberg, R., Wang, C., Petznick, G., Luo, S.,
+#' Khrebtukova, I., Schroth, G. P., Beyerlein, P., and Beutler, A. S. (2010).
+#' mRNA-seq with agnostic splice site discovery for nervous system
+#' transcriptomics tested in chronic pain. Genome research, 20(6), 847-860.
+#' http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2877581/
+#'
+#' Frazee, A. C., Langmead, B., and Leek, J. T. (2011). ReCount: a
+#' multi-experiment resource of analysis-ready RNA-seq gene count datasets.
+#' BMC Bioinformatics, 12, 449. http://bowtie-bio.sourceforge.net/recount/
+#'
+#' @importFrom Biobase ExpressionSet exprs
+#' @return ExpressionSet
+"hammer"

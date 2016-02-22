@@ -1,0 +1,40 @@
+language: r
+sudo: required
+bioc_required: true
+warnings_are_errors: true
+
+
+env:
+  global:
+    - NOT_CRAN=true
+before_install: echo "options(repos = c(CRAN='http://cran.rstudio.com'))" > ~/.Rprofile
+
+notifications:
+  email:
+    recipients:
+      - ajbass@princeton.edu
+
+apt_packages:
+  - netcdf-bin
+  - libnetcdf-dev
+
+r_packages:
+  - testthat
+  - rmarkdown
+  - dplyr
+  - tidyr
+  - broom
+  - plyr
+  - data.table
+  - ggplot2
+  - knitr
+  
+bioc_packages:
+  - Biobase
+  - limma
+  - DESeq2
+  - airway 
+  - GenomicRanges
+  - edgeR
+  - qvalue
+  - MSnbase
