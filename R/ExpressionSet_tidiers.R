@@ -32,7 +32,7 @@
 #'
 #' @S3method tidy ExpressionSet
 #' @export tidy.ExpressionSet
-#' @importFrom Biobase assayDataElement assayDataElementNames
+#' @importFrom Biobase assayDataElement assayDataElementNames pData
 tidy.ExpressionSet <- function(x, addPheno=FALSE,
                                assay=Biobase::assayDataElementNames(x)[1L],
                                ...) {
