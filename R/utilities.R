@@ -22,3 +22,25 @@ finish <- function(x) {
         stop(paste("Invalid biobroom.return format", opt))
     }
 }
+# From broom package
+fix_data_frame <- function(x, newnames = NULL, newcol = "term", check.names = FALSE)
+{
+    if (!is.null(newnames) && length(newnames) != ncol(x)) {
+        stop("newnames must be NULL or have length equal to number of columns")
+    }
+    if (all(rownames(x) == seq_len(nrow(x)))) {
+        ret <- data.frame(x, stringsAsFactors = FALSE)
+        if (!is.null(newnames)) {
+            colnames(ret) <- newnames
+        }
+    }
+    else {
+        ret <- data.frame(...new.col... = rownames(x), unrowname(x),
+                          stringsAsFactors = FALSE, check.names = check.names)
+        colnames(ret)[1] <- newcol
+        if (!is.null(newnames)) {
+            colnames(ret)[-1] <- newnames
+        }
+    }
+    unrowname(ret)
+}
