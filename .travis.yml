@@ -1,13 +1,18 @@
 language: r
 sudo: required
 bioc_required: true
+r: bioc-devel
 warnings_are_errors: true
 
-
-env:
-  global:
-    - NOT_CRAN=true
-before_install: echo "options(repos = c(CRAN='http://cran.rstudio.com'))" > ~/.Rprofile
+bioc_packages:
+  - Biobase
+  - limma
+  - DESeq2
+  - airway 
+  - GenomicRanges
+  - edgeR
+  - qvalue
+  - MSnbase
 
 notifications:
   email:
@@ -28,13 +33,3 @@ r_packages:
   - data.table
   - ggplot2
   - knitr
-  
-bioc_packages:
-  - Biobase
-  - limma
-  - DESeq2
-  - airway 
-  - GenomicRanges
-  - edgeR
-  - qvalue
-  - MSnbase
