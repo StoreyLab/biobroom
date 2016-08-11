@@ -1,8 +1,17 @@
 language: r
 sudo: required
-bioc_required: true
+r: bioc-devel
 warnings_are_errors: true
 
+bioc_packages:
+  - Biobase
+  - limma
+  - DESeq2
+  - airway 
+  - GenomicRanges
+  - edgeR
+  - qvalue
+  - MSnbase
 
 env:
   global:
@@ -28,13 +37,3 @@ r_packages:
   - data.table
   - ggplot2
   - knitr
-  
-bioc_packages:
-  - Biobase
-  - limma
-  - DESeq2
-  - airway 
-  - GenomicRanges
-  - edgeR
-  - qvalue
-  - MSnbase
