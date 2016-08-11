@@ -88,7 +88,7 @@ augment.DGEList <- function(x, data = NULL, ...) {
     if (!missing(data)) {
         ret <- cbind(as.data.frame(data), as.data.frame(ret))
     }
-    if (is.null(names(list()))) stop("No columns to augment in DGEList")
+    if (is.null(names(ret))) stop("No columns to augment in DGEList")
     finish(as.data.frame(ret))
 }
 
