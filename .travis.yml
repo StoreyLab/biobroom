@@ -1,5 +1,6 @@
 language: r
 sudo: required
+bioc_required: true
 r: bioc-devel
 warnings_are_errors: true
 
@@ -12,11 +13,6 @@ bioc_packages:
   - edgeR
   - qvalue
   - MSnbase
-
-env:
-  global:
-    - NOT_CRAN=true
-before_install: echo "options(repos = c(CRAN='http://cran.rstudio.com'))" > ~/.Rprofile
 
 notifications:
   email:
